@@ -2643,7 +2643,7 @@ input[type="search"] {
 .radio label,
 .checkbox label {
   min-height: 20px;
-  padding-left: 20px;
+  padding-left: 0px;
   margin-bottom: 0;
   font-weight: normal;
   cursor: pointer;
@@ -2653,8 +2653,8 @@ input[type="search"] {
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
   position: absolute;
-  margin-top: 4px \9;
-  margin-left: -20px;
+  margin-top: 1px;
+  margin-left: 9px;
 }
 .radio + .radio,
 .checkbox + .checkbox {
