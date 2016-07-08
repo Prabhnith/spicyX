@@ -38,10 +38,10 @@ a.btn_red {color: #FFF;}
 
 /* Popup Styles*/
 .popupHeader {font-size:16px; text-transform: uppercase;}
-.popupHeader {background:#F4F4F2; position:relative; padding:15px 23px; border-bottom:1px solid #DDD; font-weight:bold;}
+.popupHeader {background:#F4F4F2; position:relative; padding:15px 23px; border-bottom:1px solid #DDD; font-weight:bold;margin-top: -95px;}
 .popupHeader .modal_close {position: absolute; right: 0; top:0; padding:10px 15px; /*! background:#E4E4E2; */ cursor: pointer; color:#4a3030; font-size:19px;}
 
-.popupBody {padding:25px;}
+.popupBody {padding:25px;background: #f8f6f1;/*! border-radius: 96px; */}
 
 
 /* Social Login Form */
@@ -57,20 +57,32 @@ a.btn_red {color: #FFF;}
 .social_login .icon_title {display:block; padding:6px 0px 6px 12px; float:left; font-weight: bold; font-size: 16px; color:#FFF;}
 .social_login_facebook .social_box:hover {background: RGB(31, 55, 105);}
 
-.centeredText {text-align: center; margin: 20px 0; clear: both; overflow: hidden; text-transform: uppercase;}
-
+.centeredText {text-align: center; margin: 20px 0; clear: both; overflow: hidden; /*! text-transform: uppercase; */}
+.or_separator {margin:5px;}
 .action_btns {clear:both; overflow: hidden;}
 .action_btns a {display: block;}
-
+/* login btns */
+.login_btn {
+  background: rgb(32, 172, 118) none repeat scroll 0% 0%;
+font-weight: bold;
+color: rgb(255, 255, 255);
+}
+.signup_btn {
+  background: rgb(32, 172, 118) none repeat scroll 0% 0%;
+font-weight: bold;
+color: rgb(255, 255, 255);
+}
+.login_btn :hover {background: #20ac80;}
+.signup_btn :hover {background: #40ac80;}
 /* User Login Form */
 .user_login {display: none;}
 .user_login label {display: block; margin-bottom:5px;}
-.user_login input[type="text"], .user_login input[type="email"], .user_login input[type="password"] {display: block; width:90%; padding: 10px; border:1px solid #DDD; color:#666;}
-input[type="text"], input[type="email"],  input[type="password"] :active {
-  border-color: green;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+.user_login input[type="text"], .user_login input[type="email"], .user_login input[type="password"] {display: block; width:100%; padding: 10px; border:1px solid #DDD; color:#332727;margin-left:  0px;}
+te {
+  /*! border-color: green; */
+  /*! outline: 0; */
+  /*! -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6); */
+  /*! box-shadow: inset 0 1px 1px rgba(230, 32, 32, 0.1), 0 0 8px rgba(21, 8, 242, 0.6); */
 }  
 .user_login input[type="checkbox"] {float:left; margin-right:5px;}
 .user_login input[type="checkbox"]+label {float:left;}
