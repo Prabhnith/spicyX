@@ -1928,11 +1928,12 @@ RESERVATION SECTION
  FOOTER SECTION
 ====================*/
 #mu-footer {
-  background-color: #444;
+  background-color: #241E1E;
   display: inline;
   float: left;
-  padding: 50px 0;
+  padding: 42px 0;
   width: 100%;
+  
 }
 #mu-footer .mu-footer-area {
   display: inline;
@@ -1948,7 +1949,7 @@ RESERVATION SECTION
   margin-bottom: 10px;
 }
 #mu-footer .mu-footer-area .mu-footer-social a {
-  background-color: #555;
+  /*! background-color: #555; */
   color: #fff;
   display: inline-block;
   font-size: 20px;
@@ -1963,6 +1964,7 @@ RESERVATION SECTION
   -ms-transition: all 0.5s;
   -o-transition: all 0.5s;
   transition: all 0.5s;
+  border-radius: 95%;
 }
 #mu-footer .mu-footer-area .mu-footer-copyright {
   display: inline;

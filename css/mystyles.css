@@ -13,3 +13,27 @@
     font-family: Cursive;
     font-size: 20px;
 }
+.stickers {
+    width: 25px;
+    height: 25px;
+    border-radius: 0px;
+    position: absolute;
+    overflow: hidden;
+    left: 23px;
+    top: 28px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.add-item {
+	border-radius: 50%;
+	border: 2px solid;
+}
+.collection-item.avatar:hover{
+    background: #ebf8f6;
+}
+.item-price {
+	padding: 25px;
+}
+.collection.col.s10.menu-items {
+	margin:30px;
+}
