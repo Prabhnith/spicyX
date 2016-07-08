@@ -1,0 +1,15 @@
+.form-control.front_search {
+    position: relative;
+    vertical-align: top;
+    background-color: rgb(225, 231, 206);
+    padding: 17px;
+    margin-top: 29px;
+    width: 70%;
+    margin-left: 15%;
+}
+
+.select-vendor {
+    width: 50%;
+    font-family: Cursive;
+    font-size: 20px;
+}
