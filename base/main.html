@@ -8,12 +8,16 @@
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="./css/prabhstyles.css">
 		<link href="https://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet" type="text/css">
+
+		<link rel="stylesheet" type="text/css" href="./css/anilstyles.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<div class="">
+
 			<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+			<div id="myCarousel" class="carousel slide ourcarousel" data-ride="carousel">
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
 					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -45,6 +49,28 @@
 						<img class="our-slider-image"  src="./img/slider/3.jpg" >
 					</div>
 				</div>
+                  <!-- Navigational bar-->
+				<nav class="navbar  ournav navbar-fixed-top">
+                       <div class="container-fluid  ">
+                       <div class="navbar-header">
+                        <a class="navbar-brand white" href="#">SpicyX</a>
+                        </div>
+                      <ul class="nav navbar-nav navbar-right">
+                      <li ><a class="white" href="#" >HOME</a></li>
+                       <li class="dropdown"><a class="dropdown-toggle white" data-toggle="dropdown" href="#">MENU <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                       <li><a class="white" href="#">Starters</a></li>
+                         <li><a class="white" href="#">Veg</a></li>
+                          <li><a class="white" href="#">Non-veg</a></li>
+                          </ul>
+                          </li>
+                          <li><a class="white" href="#">Contact</a></li>
+                         <li><a class= "log_sign_color" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                           <li><a class= "log_sign_color" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        </ul>
+                       </div>
+                      </nav>
+
 				<!-- Left and right controls -->
 				<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
 					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
