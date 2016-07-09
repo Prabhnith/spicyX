@@ -1,0 +1,52 @@
+.our-site-title {
+	font-family: "Tangerine", cursive;
+	font-size: 100px;
+	font-weight: 400;
+	line-height: 70px;
+	color: #c1a35f;
+}
+.our-site-motto {
+	color: #fff;
+	font-size: 20px;
+	margin-bottom: 30px;
+	margin-top: 24px;
+	padding: 0 30px;
+}
+.our-slider-image {
+	filter: brightness(70%);
+}
+.stickers {
+	width: 50px;
+	padding: 10px;
+}
+.our-menu-list {
+    margin-top: 20px;
+    border: 0.5px solid rgba(51, 51, 51, 0.28);
+    padding: 10px;
+}
+.our-menu-item {
+	font-weight: bold;
+}
+.our-menu-content{
+	font-style: italic;
+}
+.media-body, .media-left, .media-right {
+    display: table-cell;
+    vertical-align: top;
+    padding: 10px;
+}
+.price-tag {
+	color: #20ac76;
+	font-weight: bold;
+}
+.add-button {
+	color: #208B50;
+	border: 3px solid;
+	padding: 4px;
+	border-radius: 50%;
+	top: 18px;
+}
+.our-divider {
+	background: RGBA(51, 51, 51, 0.53);
+	padding: 1px;
+}
