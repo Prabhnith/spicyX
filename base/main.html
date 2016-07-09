@@ -6,19 +6,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/prabhstyles.css">
+		<link href="https://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet" type="text/css">
+
 		<link rel="stylesheet" type="text/css" href="./css/anilstyles.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<style>
-		.carousel-inner > .item > img,
-		.carousel-inner > .item > a > img {
-		/*width: 70%;*/
-		/*margin: auto;*/
-		}
-		</style>
-	</head>  </style>
+	</head>
 	<body>
 		<div class="">
+
+			<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
 			<div id="myCarousel" class="carousel slide ourcarousel" data-ride="carousel">
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
@@ -29,14 +27,26 @@
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
-						<img src="./img/slider/1.jpg" alt="Chania" >
+						<div class="carousel-caption">
+							<h3 class="our-site-title">Order food Online!</h3>
+							<p class="our-site-motto">Find the best food near You.</p>
+						</div>
+						<img class="our-slider-image" src="./img/slider/1.jpg" >
 					</div>
 					<div class="item">
-						<img src="./img/slider/2.jpg" alt="Chania" >
+						<div class="carousel-caption">
+							<h3 class="our-site-title">Order food Online!</h3>
+							<p class="our-site-motto">Find the best food near You.</p>
+						</div>
+						<img class="our-slider-image"  src="./img/slider/2.jpg" >
 					</div>
 					
 					<div class="item">
-						<img src="./img/slider/3.jpg" alt="Flower" >
+						<div class="carousel-caption">
+							<h3 class="our-site-title">Order food Online!</h3>
+							<p class="our-site-motto">Find the best food near You.</p>
+						</div>
+						<img class="our-slider-image"  src="./img/slider/3.jpg" >
 					</div>
 				</div>
                   <!-- Navigational bar-->
@@ -73,5 +83,36 @@
 				</a>
 			</div>
 		</div>
-	</body>
+		<ul class="media-list col-xs-offset-2 col-xs-8 our-menu-list">
+			<li class="media">
+				<div class="media-left">
+						<img class="media-object stickers" src="./img/veg-sticker.png" alt="...">
+				</div>
+				<div class="media-body our-media-body">
+					<h4 class="media-heading">Paneer Shahi and corn Korma 
+					<span class="glyphicon glyphicon-plus add-button pull-right"></span>
+					<p class="pull-right price-tag">₹ 150</p></h4>
+					<p class="our-menu-content">Mushroom sautéed with baby corn, onion, tomato, poppy seeds, garlic cloves and spice.
+				</p>
+				</div>
+			</li>
+			<li role="separator" class="divider our-divider"></li>
+			<li class="media">
+				<div class="media-left">
+						<img class="media-object stickers" src="./img/veg-sticker.png" alt="...">
+				</div>
+				<div class="media-body our-media-body">
+					<h4 class="media-heading">Paneer Shahi and corn Korma 
+					<span class="glyphicon glyphicon-plus add-button pull-right"></span>
+					<p class="pull-right price-tag">₹ 150</p></h4>
+					<p class="our-menu-content">Mushroom sautéed with baby corn, onion, tomato, poppy seeds, garlic cloves and spice.
+				</p>
+				</div>
+			</li>
+			<li role="separator" class="divider"></li>
+		</ul>
+
+		
+	
+</body>
 </html>
