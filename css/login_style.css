@@ -16,9 +16,9 @@ body {font-family: 'Source Sans Pro', sans-serif; font-size: 14px; color: #666;}
 .popupContainer{
 	position:absolute;
 	width:330px;
-	height: auto;
-	left:45%;
-	top:80px;
+	/*! height: auto; */
+	left:28%;
+	top:35%; 
 	background: #FFF;
 }
 
