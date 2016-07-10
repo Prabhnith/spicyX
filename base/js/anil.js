@@ -9,14 +9,14 @@
     });
 
 
-    var elem = document.querySelector('.ournav');
-    var animation = elem.animate([
-        {background-color: rgba(0, 0, 0, 0.1), offset: },
-        {background-color: rgba(0, 0, 0, 0.2), offset:},
-        {background-color: rgba(0, 0, 0, 0.3), offset:},
-        {background-color: rgba(0, 0, 0, 0.4), offset:},
-    ], {
-        // direction: 'alternate',
-        // duration: 500,
-        // iterations: Infinity
-    });
+    // var elem = document.querySelector('.ournav');
+    // var animation = elem.animate([
+    //     {background-color: rgba(0, 0, 0, 0.1), top: 0px },
+    //     {background-color: rgba(0, 0, 0, 0.2), top: 10px},
+    //     {background-color: rgba(0, 0, 0, 0.3), top: 20px},
+    //     {background-color: rgba(0, 0, 0, 0.8), top: 100px},
+    // ], {
+    //     // direction: 'alternate',
+    //     // duration: 500,
+    //     // iterations: Infinity
+    // });

@@ -1,16 +1,18 @@
 .ournav {
     background-color: transparent; 
+    z-index: 4;
+    border-color: transparent;
 }
 
 .ourcarousel{
 
 }
-
 .white{
 	color: white;
 }
-.header_color	{
-  color: #bda05f;
+
+.navbar-brand.header_color {
+    color: #bda05f;
 }
 
 .navbar-nav > li > a:hover,
@@ -19,13 +21,13 @@
     background-color: transparent;
 }
 
- .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+/* .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
             background-image:none !important;
  }
  .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
             background-color:@clouds;
  }
-
+*/
 /* .sidebar-nav {
     padding: 9px 0;
 }
