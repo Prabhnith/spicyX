@@ -23,6 +23,7 @@
     margin-top: 20px;
     border: 0.5px solid rgba(51, 51, 51, 0.28);
     padding: 10px;
+    margin-right: 20px;
 }
 .our-menu-item {
 	font-weight: bold;
@@ -49,4 +50,35 @@
 .our-divider {
 	background: RGBA(51, 51, 51, 0.53);
 	padding: 1px;
+}
+.items-in-cart-heading {
+	background-color: #20ac76;
+	border-color: #20ac76;
+	color: white;
+}
+.items-in-cart-body {
+	border-color: #20ac76;
+}
+.our-panel {
+	margin-top: 20px;
+}
+.our-footer{
+	background: #222;
+	height: 135px;
+}
+.footer-content {
+	color: white;
+	font-weight: bold;
+	text-align: center;
+}
+.footer-discription {
+	color: white;
+	text-align: center;
+}
+.hearts {
+	color: red;
+	font-size: 40px;
+	vertical-align: middle;
+	text-align: center;
+
 }
