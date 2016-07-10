@@ -3,7 +3,7 @@
 	<head>
 		<title>SpicyX</title>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="./css/prabhstyles.css">
@@ -12,10 +12,17 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	</head>
-	<body>
+	<body onresize="resize()">
 		
 			<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
 				<div id="myCarousel" class="carousel slide ourcarousel" data-ride="carousel">
+				<div>
+				<h3  id="site-title" class="col-sm-12 our-site-title center">
+				Order food Online!<br>
+				<span id="site-motto" class="our-site-motto">Find the best food near You.</span>
+				</h3>
+				<!-- <p class="our-site-motto">Find the best food near You.</p> -->
+				</div>
 					<!-- Indicators -->
 					<ol class="carousel-indicators">
 						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -26,23 +33,23 @@
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
 							<div class="carousel-caption">
-								<h3 class="our-site-title">Order food Online!</h3>
-								<p class="our-site-motto">Find the best food near You.</p>
+								<!-- <h3 class="our-site-title">Order food Online!</h3>
+								<p class="our-site-motto">Find the best food near You.</p> -->
 							</div>
 							<img class="our-slider-image" src="./img/slider/1.jpg" >
 						</div>
 						<div class="item">
 							<div class="carousel-caption">
-								<h3 class="our-site-title">Order food Online!</h3>
-								<p class="our-site-motto">Find the best food near You.</p>
+								<!-- <h3 class="our-site-title">Order food Online!</h3>
+								<p class="our-site-motto">Find the best food near You.</p> -->
 							</div>
 							<img class="our-slider-image"  src="./img/slider/2.jpg" >
 						</div>
 						
 						<div class="item">
 							<div class="carousel-caption">
-								<h3 class="our-site-title">Order food Online!</h3>
-								<p class="our-site-motto">Find the best food near You.</p>
+								<!-- <h3 class="our-site-title">Order food Online!</h3>
+								<p class="our-site-motto">Find the best food near You.</p> -->
 							</div>
 							<img class="our-slider-image"  src="./img/slider/3.jpg" >
 						</div>
@@ -158,7 +165,7 @@
 		<!-- </div> -->
 		<footer class="col-sm-12 our-footer">
 			<h3 class="footer-content">In Beta, Development under progress.</h3>
-				<h4 class="footer-discription">made with <span class="hearts">♥</span> in summers.</h4>
+				<h4 class="footer-discription">made with <span class="glyphicon glyphicon-heart hearts"></span> in summers.</h4>
 		</footer>
 		
 	</body>

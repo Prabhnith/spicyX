@@ -1,16 +1,23 @@
 .our-site-title {
 	font-family: "Tangerine", cursive;
-	font-size: 100px;
-	font-weight: 400;
-	line-height: 70px;
-	color: #c1a35f;
+	font-size: 7vw;
+	color: #f0b83b;
+	z-index: 1;
+	position: absolute;
+	text-align: center;
+	vertical-align: middle;
+	margin-top: -5%;
+	padding: 10%;
+	margin-bottom: auto;
+	margin-right: auto;
+	margin-left: auto;
+	text-shadow: 1px 1px #333;
 }
 .our-site-motto {
 	color: #fff;
-	font-size: 20px;
-	margin-bottom: 30px;
-	margin-top: 24px;
-	padding: 0 30px;
+	font-family: inherit;
+	font-size: 3vw;
+	text-shadow: 1px 2px #333;
 }
 .our-slider-image {
 	filter: brightness(70%);
