@@ -48,11 +48,16 @@
 	font-weight: bold;
 }
 .add-button {
+	background: rgb(191, 255, 200) none repeat scroll 0% 0%;
+  width: 32px;
 	color: #208B50;
 	border: 3px solid;
 	padding: 4px;
 	border-radius: 50%;
 	top: 18px;
+}
+.add-button:hover {
+	color: #097A3B;;
 }
 .our-divider {
 	background: RGBA(51, 51, 51, 0.53);
@@ -114,4 +119,13 @@
 }
 .cart-plus-minus-buttons {
 	padding: 2px;
+}
+.item-in-cart-sticker {
+	width: 18px;
+	padding: 0px;
+	background: rgb(51, 51, 51) none repeat scroll 0% 0%;
+	margin: -8px;
+}
+.item-in-cart-price-tag {
+	margin: 10px;
 }
