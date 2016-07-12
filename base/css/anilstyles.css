@@ -7,18 +7,36 @@
 .ourcarousel{
 
 }
-.white{
+.white_color{
 	color: white;
 }
 
 .navbar-brand.header_color {
     color: #bda05f;
 }
-
-.navbar-nav > li > a:hover,
+.black_color{
+	color: black;
+}
+/*.navbar-nav > li > a:hover,
 .navbar-nav > li > a:focus {
 	color:  #bda05f;
     background-color: transparent;
+}*/
+
+
+ul.nav li a, ul.nav li a:visited {
+    color: white !important;
+    font-size: small;
+}
+
+ul.nav li a:hover, ul.nav li a:active {
+    color: white !important;
+    font-size: small;
+}
+
+ul.nav li.active a {
+    color: white !important;
+    font-size: small;
 }
 
 /* .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
