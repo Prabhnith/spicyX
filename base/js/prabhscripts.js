@@ -3,19 +3,20 @@ window.onload = function() {
 	loadMenuItems();
 }
 
-function addItem() {
-	var itemCounter = document.getElementById("itemCounter");
+function addItem(id) {
+	var itemCounter = document.getElementById(id);
 	itemCounter.innerHTML = +itemCounter.innerHTML + 1;
 }
 
-function removeItem() {
-	var itemCounter = document.getElementById("itemCounter");
+function removeItem(id) {
+	var itemCounter = document.getElementById(id);
 	if (+itemCounter.innerHTML != 0) {
 		itemCounter.innerHTML = +itemCounter.innerHTML - 1;
 	}
 }
 
 function loadMenuItems() {
+	console.log("in m");
 	ItemList = [
 		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
 		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
@@ -60,7 +61,7 @@ function loadMenuItems() {
 
 		addItemSymbol = document.createElement("button");
 		addItemSymbol.setAttribute("class", "btn glyphicon glyphicon-plus add-button pull-right");
-		addItemSymbol.setAttribute("id", i);
+		addItemSymbol.setAttribute("id", "menuItemBtn"+i);
 		addItemSymbol.setAttribute("onclick", "addToCart(id);");
 		itemHeading.appendChild(addItemSymbol);
 
@@ -96,19 +97,21 @@ function addToCart(i) {
 	loadCartItems(item);
 };
 
+itemCounterID = 0;
 
 function loadCartItems(ItemList) {
+	itemCounterID++;
 	console.log(ItemList.length);
 	cartItems = document.getElementById("cartItems");
 	listItem = document.createElement("li");
-	listItem.setAttribute("class", "media");
+	listItem.setAttribute("class", "media media-margin");
 
 	plusMinusDiv = document.createElement("div");
 	plusMinusDiv.setAttribute("class", "media-left btn-group-vertical cart-plus-minus-buttons-group");
 
 	plusBtn = document.createElement("button");
 	plusBtn.setAttribute("class", "btn cart-plus-minus-buttons");
-	plusBtn.setAttribute("onclick", "addItem();");
+	plusBtn.setAttribute("onclick", "addItem('itemCounter" + itemCounterID + "');");
 
 	plusIcon = document.createElement("span");
 	plusIcon.setAttribute("class", "glyphicon glyphicon-plus");
@@ -117,11 +120,14 @@ function loadCartItems(ItemList) {
 
 	itemCounter = document.createElement("span");
 	itemCounter.setAttribute("class", "item-counter");
+	itemCounter.setAttribute("id", "itemCounter" + itemCounterID);
+	itemCounter.innerHTML = 1;
 	plusMinusDiv.appendChild(itemCounter);
+
 
 	minusBtn = document.createElement("button");
 	minusBtn.setAttribute("class", "btn cart-plus-minus-buttons");
-	minusBtn.setAttribute("onclick", "removeItem();");
+	minusBtn.setAttribute("onclick", "removeItem('itemCounter" + itemCounterID + "');");
 
 	minusIcon = document.createElement("span");
 	minusIcon.setAttribute("class", "glyphicon glyphicon-minus");
