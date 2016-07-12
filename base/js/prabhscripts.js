@@ -2,17 +2,45 @@
 window.onload = function() {
 	loadMenuItems();
 }
+function updatePrice (counterID,plus) {
+	var itemPriceIndex=0;
+	for(var i=0;i<ItemList.length;i++){
+		if(counterID == ItemList[i][4]){
+			itemPriceIndex=i;
+			break;
+		}
+	}
+	console.log("in updatePrice");
+	totalAmount = document.getElementById("total-amount");
+	console.log(ItemList[itemPriceIndex][2]);
+	console.log(totalAmount);
+	if(plus){
+		totalAmount.innerHTML = +totalAmount.innerHTML + parseInt(ItemList[itemPriceIndex][2]);
+	}else{
+		totalAmount.innerHTML = +totalAmount.innerHTML - parseInt(ItemList[itemPriceIndex][2]);
+	}
+	console.log(totalAmount.innerHTML);
+}
 
 function addItem(counterID) {
 	console.log(counterID);
 	var itemCounter = document.getElementsByName(counterID)[0];
 	itemCounter.firstChild.data = +itemCounter.firstChild.data + 1;
+	updatePrice(counterID,true );
 }
 
 function removeItem(counterID) {
 	var itemCounter = document.getElementsByName(counterID)[0];
-	if (+itemCounter.firstChild.data != 0) {
+	if (+itemCounter.firstChild.data > 1) {
 		itemCounter.firstChild.data = +itemCounter.firstChild.data - 1;
+		updatePrice(counterID,false );
+	}else{
+		document.getElementById("key"+counterID).remove();
+		var index = ItemsInCartList.indexOf(counterID);
+		if (index > -1) {
+		    ItemsInCartList.splice(index, 1);
+		    updatePrice(counterID,false);
+		}
 	}
 }
 
@@ -32,7 +60,6 @@ function loadMenuItems() {
 
 		listItem = document.createElement("li");
 		listItem.setAttribute("class", "media");
-		// listItem.setAttribute("id", );
 
 		stickerDiv = document.createElement("div");
 		stickerDiv.setAttribute("class", "media-left");
@@ -115,6 +142,7 @@ function checkItemsInTheCart(buttonID){
 function loadCartItems(ItemList) {
 	if(!checkItemsInTheCart(ItemList[0])){
 		addElementToCart(ItemList);
+		updatePrice(ItemList[0],true);
 	}
 };
 	
@@ -124,6 +152,7 @@ function addElementToCart(ItemList){
 	cartItems = document.getElementById("cartItems");
 	listItem = document.createElement("li");
 	listItem.setAttribute("class", "media media-margin");
+	listItem.setAttribute("id", "key"+ItemList[0]);
 
 	plusMinusDiv = document.createElement("div");
 	plusMinusDiv.setAttribute("class", "media-left btn-group-vertical cart-plus-minus-buttons-group");
