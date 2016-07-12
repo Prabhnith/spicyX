@@ -3,13 +3,13 @@ window.onload = function() {
 	loadMenuItems();
 }
 
-function addItem(id) {
-	var itemCounter = document.getElementById(id);
+function addItem(counterID) {
+	var itemCounter = document.getElementById(counterID);
 	itemCounter.innerHTML = +itemCounter.innerHTML + 1;
 }
 
-function removeItem(id) {
-	var itemCounter = document.getElementById(id);
+function removeItem(counterID) {
+	var itemCounter = document.getElementById(counterID);
 	if (+itemCounter.innerHTML != 0) {
 		itemCounter.innerHTML = +itemCounter.innerHTML - 1;
 	}
@@ -18,12 +18,12 @@ function removeItem(id) {
 function loadMenuItems() {
 	console.log("in m");
 	ItemList = [
-		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
+		["Paneer Shahi ", "Mushroom sautéed with baby corn", "270", "V"],
 		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
 		["Corn Korma", "garlic cloves and spice", "170", "V"],
 		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
-		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
-		["Corn Korma", "garlic cloves and spice", "170", "V"]
+		["Korma", "onion, tomato, poppy seeds", "230", "N"],
+		["Corn", "garlic cloves and spice", "170", "V"]
 	];
 
 	for (let i = 0; i < ItemList.length; i++) {
@@ -93,15 +93,34 @@ function addToCart(i) {
 	var dishPrice = btn.parentNode.children[1].innerHTML;
 	var dishType = btn.parentNode.attributes[1].textContent;
 	var item = [];
-	item.push(dishName, dishPrice, dishType);
+	item.push(i,dishName, dishPrice, dishType);
 	loadCartItems(item);
 };
 
 itemCounterID = 0;
+ItemsInCartList=[];
+
+function checkItemsInTheCart(buttonID){
+	if($.inArray(buttonID, ItemsInCartList) == -1) {
+		ItemsInCartList.push(buttonID);
+		return false;
+	}
+	else{
+		var counterID = "itemCounter" + buttonID[buttonID.length -1];
+		addItem(counterID);
+		return true;
+	}
+};
 
 function loadCartItems(ItemList) {
-	itemCounterID++;
-	console.log(ItemList.length);
+	if(!checkItemsInTheCart(ItemList[0])){
+		addElementToCart(ItemList);
+	}
+};
+	
+
+function addElementToCart(ItemList){
+	
 	cartItems = document.getElementById("cartItems");
 	listItem = document.createElement("li");
 	listItem.setAttribute("class", "media media-margin");
@@ -128,6 +147,7 @@ function loadCartItems(ItemList) {
 	minusBtn = document.createElement("button");
 	minusBtn.setAttribute("class", "btn cart-plus-minus-buttons");
 	minusBtn.setAttribute("onclick", "removeItem('itemCounter" + itemCounterID + "');");
+	itemCounterID++;
 
 	minusIcon = document.createElement("span");
 	minusIcon.setAttribute("class", "glyphicon glyphicon-minus");
@@ -140,12 +160,12 @@ function loadCartItems(ItemList) {
 
 	itemHeading = document.createElement("h4");
 	itemHeading.setAttribute("class", "media-heading");
-	itemHeading.innerHTML = ItemList[0];
+	itemHeading.innerHTML = ItemList[1];
 
 	stickerImg = document.createElement("img");
 	stickerImg.setAttribute("class", "pull-right item-in-cart-sticker");
 
-	if (ItemList[2] == "veg") {
+	if (ItemList[3] == "veg") {
 		stickerImg.setAttribute("src", "./img/veg-sticker.png");
 	} else {
 		stickerImg.setAttribute("src", "./img/non-veg-sticker.png");
@@ -154,7 +174,7 @@ function loadCartItems(ItemList) {
 
 	priceTag = document.createElement("p");
 	priceTag.setAttribute("class", "pull-right price-tag item-in-cart-price-tag");
-	priceTag.innerHTML = ItemList[1];
+	priceTag.innerHTML = ItemList[2];
 	itemHeading.appendChild(priceTag);
 
 	itemName.appendChild(itemHeading);
