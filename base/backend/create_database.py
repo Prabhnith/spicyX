@@ -25,14 +25,14 @@ if presence:
 cursor.execute("""
     create table vendors(
         vendorid bigserial PRIMARY KEY,
-        owner varchar(60) NOT NULL,
-        vendorname varchar(80) NOT NULL,
-        email varchar(35) NOT NULL,
+        owner text NOT NULL,
+        vendorname text NOT NULL,
+        email text NOT NULL,
         mobile varchar(12)[] NOT NULL,
         address text NOT NULL,
-        offer text,
-        imageaddress varchar(50),
-        password varchar(40) NOT NULL
+        imageaddress text,
+        description text ,
+        password text NOT NULL
     )
 """)
 
@@ -60,15 +60,17 @@ if presence:
 #                       CREATE TABLE ITEMSMENU                                      #              
 cursor.execute("""
     create table itemmenu(
-        item_no bigserial PRIMARY KEY,
+        item_no int NOT NULL ,
         vendor_id int NOT NULL,
-        item_name varchar(60) NOT NULL,
-        item_type character(10) NOT NULL CHECK(item_type in ('starter','main','desert')) ,
-        item_nature character(1) NOT NULL CHECK(item_nature in ('v','n')),
+        item_name text NOT NULL,
+        item_type varchar(10) NOT NULL CHECK(item_type in ('starter','main','desert')) ,
+        item_nature varchar(1) NOT NULL CHECK(item_nature in ('v','n')),
         price money NOT NULL,
         item_description text NOT NULL,
         offer text,
-        imageaddress varchar(50)
+        imageaddress text,
+        discount numeric ,
+        PRIMARY KEY(vendor_id, item_no)
     )
 """)
 #                       COMMIT AND ROLLBACK IF EXCEPTION                             #
@@ -81,7 +83,7 @@ except Exception as e:
 
 #                               CHECK FOR TABLE CUSTOMERS                                #
 cursor.execute("""
-   select exists(select 0 from pg_class where relname = 'cutomers')
+   select exists(select 0 from pg_class where relname = 'customers')
 """)
 
 presence = cursor.fetchone()[0]
@@ -90,20 +92,20 @@ print(presence)
 
  #                       DELETE CUSTOMERS          IF EXISTS                            #
 if presence:
-    print('cutomers table exists, deleting here')
+    print('customers table exists, deleting here')
     cursor.execute("""
-        drop table cutomers
+        drop table customers
     """)
 
 #                       CREATE TABLE CUSTOMERS                                            #
 cursor.execute("""
-    create table cutomers(
-            cutomer_id bigserial PRIMARY KEY NOT NULL,
-            cutomer_name varchar(80) NOT NULL,
-            emailid varchar(50)[] NOT NULL,
+    create table customers(
+            customer_id bigserial PRIMARY KEY NOT NULL,
+            customer_name text NOT NULL,
+            emailid text NOT NULL,
             mobile varchar(12)[] NOT NULL,
             address text,
-            password varchar(40) NOT NULL
+            password text NOT NULL
     )
 """)
 try:

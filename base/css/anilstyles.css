@@ -30,15 +30,24 @@ ul.nav li a, ul.nav li a:visited {
 }
 
 ul.nav li a:hover, ul.nav li a:active {
-    color: white !important;
+    color: #bda05f !important;
     font-size: small;
 }
 
 ul.nav li.active a {
-    color: white !important;
+    color: black !important;
     font-size: small;
 }
+.ourdrop{
+  background-color: transparent;
+}
 
+
+@media only screen and (max-width: 766px) {
+.collapsing, .in {background-color: black;}
+.collapsing ul li a, .in ul li a {color: #555!important;}
+.collapsing ul li a:hover, .in ul li a:hover {color: #f1f1f1!important;}
+}
 /* .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
             background-image:none !important;
  }
