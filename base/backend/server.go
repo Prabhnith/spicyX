@@ -63,7 +63,45 @@ func main() {
 
 	})
 
-	r.POST("/registercustomer", func(c *gin.Context) {
+	//item menu updation
+	r.POST("/additems", func(c *gin.Context) {
+		var menu MENU
+
+		c.BindJSON(&menu)
+
+		fmt.Println("\n\nRequest Received for menu updation: \n\n ")
+		// fmt.Printf("%#v", menu)
+		tx, _ := db.Begin() // tx => transaction , _ => error and execute
+
+		defer tx.Rollback() // it will be executed after the completion of local function
+
+		for _, item := range menu.ITEMS {
+
+			_, err := tx.Query(`INSERT INTO itemmenu (vendor_id ,item_no ,item_name ,item_type ,item_nature ,price ,
+        item_description ,offer ,imageaddress ,discount) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
+				item.Vendorid, item.Itemno, item.Name, item.IType, item.Nature, item.Price, item.Description,
+				item.Offer, item.Image, item.Discount)
+
+			if err != nil {
+				// c.JSON(500, "error")
+				fmt.Println(err)
+			}
+		}
+
+		commit_err := tx.Commit()
+
+		if commit_err != nil {
+			tx.Rollback()
+			c.JSON(500, "ERR")
+			return
+		}
+		fmt.Println("Menu  updated")
+		c.JSON(200, 1)
+
+	})
+
+	//customer registration
+	r.GET("/registercustomer", func(c *gin.Context) {
 		var cus customer
 		c.BindJSON(&cus)
 
@@ -163,4 +201,22 @@ type customer struct {
 
 type CSID struct {
 	id int64 `json:"vendorid,omitempty"`
+}
+
+type MENU struct {
+	ITEMS []item `json:"items"`
+}
+
+//Menu updation
+type item struct {
+	Vendorid    int     `json:"vendor_id"`
+	Itemno      int     `json:"item_no"`
+	Name        string  `json:"item_name"`
+	IType       string  `json:"item_type"`
+	Nature      string  `json:"item-nature"`
+	Description string  `json:"item_description"`
+	Price       string  `json:"price"`
+	Offer       string  `json:"offer,omitempty"`
+	Image       string  `json:"imageaddress,omitempty"`
+	Discount    float64 `json:"discount,omitempty"`
 }

@@ -17,6 +17,7 @@ function removeItem(id) {
 
 function loadMenuItems() {
 	console.log("in m");
+	var pg = require('pg');
 	ItemList = [
 		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
 		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],

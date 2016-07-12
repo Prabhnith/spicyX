@@ -60,12 +60,12 @@ if presence:
 #                       CREATE TABLE ITEMSMENU                                      #              
 cursor.execute("""
     create table itemmenu(
-        item_no int NOT NULL ,
-        vendor_id int NOT NULL,
+        vendor_id int NOT NULL references vendors(vendorid),
+        item_no bigint NOT NULL ,        
         item_name text NOT NULL,
         item_type varchar(10) NOT NULL CHECK(item_type in ('starter','main','desert')) ,
         item_nature varchar(1) NOT NULL CHECK(item_nature in ('v','n')),
-        price money NOT NULL,
+        price text NOT NULL,
         item_description text NOT NULL,
         offer text,
         imageaddress text,
@@ -168,7 +168,7 @@ if presence:
 #                       CREATE TABLE ACCOUNTS_RECORD                                    #
 cursor.execute("""
     create table accounts_record(
-        v_id bigserial PRIMARY KEY NOT NULL,
+        v_id bigserial PRIMARY KEY NOT NULL references vendors(vendorid),
         account smallint NOT NULL
     )
 """)
@@ -198,13 +198,13 @@ if presence:
 cursor.execute("""
     create table ordersrecord(
         order_id int PRIMARY KEY,
-        vendor_id int NOT NULL,
-        cutomer_id int NOT NULL,        
+        vendor_id int NOT NULL references vendors(vendorid),
+        customer_id int NOT NULL references customers(cutomer_id),        
         ordered_placed_on timestamp NOT NULL,
         ordered_deliverd_on timestamp ,
         order_status character(1) CHECK(order_status in('y','n')),
         description text NOT NULL,
-        amount money NOT NULL
+        amount text NOT NULL
     )
 """)
 #                       COMMIT AND ROLLBACK IF EXCEPTION                             #
