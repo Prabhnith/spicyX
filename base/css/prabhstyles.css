@@ -1,6 +1,6 @@
 .our-site-title {
 	font-family: "Tangerine", cursive;
-	font-size: 10vw;
+	font-size: 6vw;
 	color: #f0b83b;
 	z-index: 1;
 	position: absolute;
@@ -17,7 +17,7 @@
 .our-site-motto {
 	color: #fff;
 	font-family: inherit;
-	font-size: 7vw;
+	font-size: 4vw;
 	text-shadow: 1px 2px #333;
 }
 .title-font {
