@@ -2,58 +2,29 @@
 window.onload = function() {
 	loadMenuItems();
 }
-function updatePrice (counterID,plus) {
-	var itemPriceIndex=0;
-	for(var i=0;i<ItemList.length;i++){
-		if(counterID == ItemList[i][4]){
-			itemPriceIndex=i;
-			break;
-		}
-	}
-	console.log("in updatePrice");
-	totalAmount = document.getElementById("total-amount");
-	console.log(ItemList[itemPriceIndex][2]);
-	console.log(totalAmount);
-	if(plus){
-		totalAmount.innerHTML = +totalAmount.innerHTML + parseInt(ItemList[itemPriceIndex][2]);
-	}else{
-		totalAmount.innerHTML = +totalAmount.innerHTML - parseInt(ItemList[itemPriceIndex][2]);
-	}
-	console.log(totalAmount.innerHTML);
+
+function addItem(id) {
+	var itemCounter = document.getElementById(id);
+	itemCounter.innerHTML = +itemCounter.innerHTML + 1;
 }
 
-function addItem(counterID) {
-	console.log(counterID);
-	var itemCounter = document.getElementsByName(counterID)[0];
-	itemCounter.firstChild.data = +itemCounter.firstChild.data + 1;
-	updatePrice(counterID,true );
-}
-
-function removeItem(counterID) {
-	var itemCounter = document.getElementsByName(counterID)[0];
-	if (+itemCounter.firstChild.data > 1) {
-		itemCounter.firstChild.data = +itemCounter.firstChild.data - 1;
-		updatePrice(counterID,false );
-	}else{
-		document.getElementById("key"+counterID).remove();
-		var index = ItemsInCartList.indexOf(counterID);
-		if (index > -1) {
-		    ItemsInCartList.splice(index, 1);
-		    updatePrice(counterID,false);
-		}
+function removeItem(id) {
+	var itemCounter = document.getElementById(id);
+	if (+itemCounter.innerHTML != 0) {
+		itemCounter.innerHTML = +itemCounter.innerHTML - 1;
 	}
 }
 
 function loadMenuItems() {
 	console.log("in m");
-	var pg = require('pg');
+	
 	ItemList = [
-		["Paneer Shahi ", "Mushroom sautéed with baby corn", "270", "V","dishID0"],
-		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N","dishID1"],
-		["Corn Korma", "garlic cloves and spice", "170", "V","dishID2"],
-		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V","dishID3"],
-		["Korma", "onion, tomato, poppy seeds", "230", "N","dishID4"],
-		["Corn", "garlic cloves and spice", "170", "V","dishID5"]
+		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
+		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
+		["Corn Korma", "garlic cloves and spice", "170", "V"],
+		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
+		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
+		["Corn Korma", "garlic cloves and spice", "170", "V"]
 	];
 
 	for (let i = 0; i < ItemList.length; i++) {
@@ -91,7 +62,7 @@ function loadMenuItems() {
 
 		addItemSymbol = document.createElement("button");
 		addItemSymbol.setAttribute("class", "btn glyphicon glyphicon-plus add-button pull-right");
-		addItemSymbol.setAttribute("id", ItemList[i][4]);
+		addItemSymbol.setAttribute("id", "menuItemBtn"+i);
 		addItemSymbol.setAttribute("onclick", "addToCart(id);");
 		itemHeading.appendChild(addItemSymbol);
 
@@ -123,44 +94,25 @@ function addToCart(i) {
 	var dishPrice = btn.parentNode.children[1].innerHTML;
 	var dishType = btn.parentNode.attributes[1].textContent;
 	var item = [];
-	item.push(i,dishName, dishPrice, dishType);
+	item.push(dishName, dishPrice, dishType);
 	loadCartItems(item);
 };
 
-ItemsInCartList=[];
-
-function checkItemsInTheCart(buttonID){
-	if($.inArray(buttonID, ItemsInCartList) == -1) {
-		ItemsInCartList.push(buttonID);
-		return false;
-	}
-	else{
-		addItem(buttonID);
-		return true;
-	}
-};
+itemCounterID = 0;
 
 function loadCartItems(ItemList) {
-	if(!checkItemsInTheCart(ItemList[0])){
-		addElementToCart(ItemList);
-		updatePrice(ItemList[0],true);
-	}
-};
-	
-
-function addElementToCart(ItemList){
-	
+	itemCounterID++;
+	console.log(ItemList.length);
 	cartItems = document.getElementById("cartItems");
 	listItem = document.createElement("li");
 	listItem.setAttribute("class", "media media-margin");
-	listItem.setAttribute("id", "key"+ItemList[0]);
 
 	plusMinusDiv = document.createElement("div");
 	plusMinusDiv.setAttribute("class", "media-left btn-group-vertical cart-plus-minus-buttons-group");
 
 	plusBtn = document.createElement("button");
 	plusBtn.setAttribute("class", "btn cart-plus-minus-buttons");
-	plusBtn.setAttribute("onclick", "addItem('" + ItemList[0] + "');");
+	plusBtn.setAttribute("onclick", "addItem('itemCounter" + itemCounterID + "');");
 
 	plusIcon = document.createElement("span");
 	plusIcon.setAttribute("class", "glyphicon glyphicon-plus");
@@ -169,14 +121,14 @@ function addElementToCart(ItemList){
 
 	itemCounter = document.createElement("span");
 	itemCounter.setAttribute("class", "item-counter");
-	itemCounter.setAttribute("name", ItemList[0]);
+	itemCounter.setAttribute("id", "itemCounter" + itemCounterID);
 	itemCounter.innerHTML = 1;
 	plusMinusDiv.appendChild(itemCounter);
 
 
 	minusBtn = document.createElement("button");
 	minusBtn.setAttribute("class", "btn cart-plus-minus-buttons");
-	minusBtn.setAttribute("onclick", "removeItem('"+ ItemList[0] + "');");
+	minusBtn.setAttribute("onclick", "removeItem('itemCounter" + itemCounterID + "');");
 
 	minusIcon = document.createElement("span");
 	minusIcon.setAttribute("class", "glyphicon glyphicon-minus");
@@ -189,12 +141,12 @@ function addElementToCart(ItemList){
 
 	itemHeading = document.createElement("h4");
 	itemHeading.setAttribute("class", "media-heading");
-	itemHeading.innerHTML = ItemList[1];
+	itemHeading.innerHTML = ItemList[0];
 
 	stickerImg = document.createElement("img");
 	stickerImg.setAttribute("class", "pull-right item-in-cart-sticker");
 
-	if (ItemList[3] == "veg") {
+	if (ItemList[2] == "veg") {
 		stickerImg.setAttribute("src", "./img/veg-sticker.png");
 	} else {
 		stickerImg.setAttribute("src", "./img/non-veg-sticker.png");
@@ -203,7 +155,7 @@ function addElementToCart(ItemList){
 
 	priceTag = document.createElement("p");
 	priceTag.setAttribute("class", "pull-right price-tag item-in-cart-price-tag");
-	priceTag.innerHTML = ItemList[2];
+	priceTag.innerHTML = ItemList[1];
 	itemHeading.appendChild(priceTag);
 
 	itemName.appendChild(itemHeading);

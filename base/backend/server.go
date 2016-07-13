@@ -32,25 +32,24 @@ func init() {
 func main() {
 	r := gin.Default()
 
-	r.POST("/registervendor", func(c *gin.Context) {
+	r.GET("/registervendor", func(c *gin.Context) {
 		var ven vendor
 
 		c.BindJSON(&ven)
 
-		fmt.Println("\n\nRequest Received : \n\n ", ven.Name, ven.Owner)
+		fmt.Println("\n\nRequest Received  for vendor registration: \n\n ")
 
 		tx, _ := db.Begin() // tx => transaction , _ => error and execute
 
 		defer tx.Rollback() // it will be executed after the completion of local function
 
-		var track ID
-
+		// var track ID
+		var num int64
 		// insert into users table
-		tx.QueryRow(`
-        INSERT INTO vendors (owner, vendorname, email ,mobile ,address  ,imageaddress ,
-		                      password ) values ($1, $2, $3, $4, $5, $6, $7) returning vendorid
-          `, ven.Owner, ven.Name, ven.Email, ven.Mobile, ven.Address, ven.Image, ven.Password).Scan(&track.id)
-
+		err := tx.QueryRow(`
+        INSERT INTO vendors (owner, vendorname, email ,mobile ,address  ,imageaddress ,description,offer, password ) values ($1, $2, $3, $4, $5, $6, $7,$8,$9) returning vendorid
+          `, ven.Owner, ven.Name, ven.Email, ven.Mobile, ven.Address, ven.Image, ven.Description, ven.Offer, ven.Password).Scan(&num)
+		fmt.Println(err)
 		commit_err := tx.Commit()
 
 		if commit_err != nil {
@@ -58,8 +57,8 @@ func main() {
 			c.JSON(500, "ERR")
 			return
 		}
-		fmt.Println("Vendor registered and his ID:", track.id)
-		c.JSON(200, track)
+		fmt.Println("Vendor registered and his ID:", num)
+		c.JSON(200, num)
 
 	})
 
@@ -76,15 +75,16 @@ func main() {
 		defer tx.Rollback() // it will be executed after the completion of local function
 
 		for _, item := range menu.ITEMS {
-
-			_, err := tx.Query(`INSERT INTO itemmenu (vendor_id ,item_no ,item_name ,item_type ,item_nature ,price ,
-        item_description ,offer ,imageaddress ,discount) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
-				item.Vendorid, item.Itemno, item.Name, item.IType, item.Nature, item.Price, item.Description,
-				item.Offer, item.Image, item.Discount)
+			// fmt.Println(item.Vendorid, item.Itemno, item.Name, item.IType, item.Nature, item.Price, item.Description,
+			// 	item.Offer, item.Image, item.Discount)
+			_, err := tx.Exec(`
+				INSERT INTO itemmenu (vendor_id ,item_no ,item_name ,item_type ,item_nature ,price , item_description ,imageaddress ,discount) 
+				values ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+		`, item.Vendorid, item.Itemno, item.Name, item.IType, item.Nature, item.Price, item.Description, item.Image, item.Discount)
 
 			if err != nil {
 				// c.JSON(500, "error")
-				fmt.Println(err)
+				fmt.Println("error", err)
 			}
 		}
 
@@ -95,7 +95,7 @@ func main() {
 			c.JSON(500, "ERR")
 			return
 		}
-		fmt.Println("Menu  updated")
+		// fmt.Println("Menu  updated")
 		c.JSON(200, 1)
 
 	})
@@ -116,7 +116,7 @@ func main() {
 		// insert into users table
 		tx.QueryRow(`
         INSERT INTO customers (customer_name, emailid ,mobile ,address ,password ) values ($1, $2, $3, $4, $5) returning customer_id
-          `, cus.Name, cus.Email, cus.Mobile, cus.Address, cus.Password).Scan(&track.id)
+          `, cus.Name, cus.Email, cus.Mobile, cus.Address, cus.Password).Scan(&track.Customerid)
 
 		commit_err := tx.Commit()
 
@@ -125,10 +125,73 @@ func main() {
 			c.JSON(500, "ERR")
 			return
 		}
-		fmt.Println("cutomer registered and his ID:", track.id)
+		fmt.Println("cutomer registered and his ID:", track.Customerid)
 		c.JSON(200, track)
 
 	})
+
+	//Serving vendors and their id's
+	r.GET("/getvendors", func(c *gin.Context) {
+		// c.BindJSON(&cus)
+
+		fmt.Println("\n\nRequest Received : \n\n")
+
+		rows, err := db.Query(` SELECT  vendorid, vendorname from vendors `)
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(500, "error while retreiving vendors data")
+		}
+
+		defer rows.Close()
+
+		// var vendors = make(map[string]int)
+		var ven getvendors
+
+		for rows.Next() {
+			var t vendorsToSend
+			err := rows.Scan(&t.Vendorid, &t.Vendorname)
+			ven.Vendors = append(ven.Vendors, t)
+			if err != nil {
+				fmt.Println(err)
+				c.JSON(500, "error while retreiving vendors data")
+			}
+		}
+		c.JSON(200, ven)
+		fmt.Println("Vendors names are sent")
+	})
+
+	// method to serve request for MENU of particular vendor
+	r.GET("/getvendorsmenu", func(c *gin.Context) {
+		var id VID
+		c.BindJSON(&id)
+
+		fmt.Println("\n\nRequest for retreiving vendors menu Received : \n\n")
+
+		rows, err := db.Query(` SELECT  * from itemmenu where vendor_id = $1 `, id.Vendorid)
+
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(500, "error while retreiving vendors menu")
+		}
+
+		defer rows.Close()
+
+		// var vendors = make(map[string]int)
+		var items MENU
+
+		for rows.Next() {
+			var t item
+			err := rows.Scan(&t.Vendorid, &t.Itemno, &t.Name, &t.IType, &t.Nature, &t.Price, &t.Description, &t.Image, &t.Discount)
+			items.ITEMS = append(items.ITEMS, t)
+			if err != nil {
+				fmt.Println(err)
+				c.JSON(500, "error while retreiving vendors menu")
+			}
+		}
+		c.JSON(200, items)
+		fmt.Println("Vendors Menu  sent")
+	})
+
 	// r.GET("/api/verifyemail", func(c *gin.Context) {
 	// 	// receive userid and map it with the table users and get email
 	// 	var userid UserIDResp
@@ -183,11 +246,12 @@ type vendor struct {
 	Address     string   `json:"address"`
 	Image       string   `json:"imageaddress,omitempty"`
 	Description string   `json:"description,omitempty"`
+	Offer       string   `json:"offer,omitempty"`
 	Password    string   `json:"password"`
 }
 
-type ID struct {
-	id int64 `json:"vendorid,omitempty"`
+type VID struct {
+	Vendorid int `json:"vendorid"`
 }
 
 type customer struct {
@@ -200,7 +264,7 @@ type customer struct {
 }
 
 type CSID struct {
-	id int64 `json:"vendorid,omitempty"`
+	Customerid int `json:"customerid,omitempty"`
 }
 
 type MENU struct {
@@ -216,7 +280,14 @@ type item struct {
 	Nature      string  `json:"item-nature"`
 	Description string  `json:"item_description"`
 	Price       string  `json:"price"`
-	Offer       string  `json:"offer,omitempty"`
 	Image       string  `json:"imageaddress,omitempty"`
 	Discount    float64 `json:"discount,omitempty"`
+}
+
+type getvendors struct {
+	Vendors []vendorsToSend `json:"vendors"`
+}
+type vendorsToSend struct {
+	Vendorid   int    `json:"vendor_id"`
+	Vendorname string `json:"vendorname"`
 }
