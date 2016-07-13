@@ -1,6 +1,6 @@
 .our-site-title {
 	font-family: "Tangerine", cursive;
-	font-size: 7vw;
+	font-size: 10vw;
 	color: #f0b83b;
 	z-index: 1;
 	position: absolute;
@@ -17,8 +17,16 @@
 .our-site-motto {
 	color: #fff;
 	font-family: inherit;
-	font-size: 3vw;
+	font-size: 7vw;
 	text-shadow: 1px 2px #333;
+}
+.title-font {
+	font-family: "Tangerine", cursive;
+}
+.div-heading {
+	font-size: 7vw;
+	color: #C1A35F;
+	text-align: center;
 }
 .our-slider-image {
 	filter: brightness(70%);
@@ -134,4 +142,18 @@
 }
 .media-margin {
 	margin: 3px;
+}
+.cart-item-separator {
+	background: RGBA(102, 146, 129, 0.42);
+	padding: 1px;
+}
+.contact-heading {
+	padding: 20px;
+	padding-left: 0px;
+}
+.contact-us {
+	padding: 0;
+}
+.container-color {
+	background: rgba(222, 222, 222, 0.3) none repeat scroll 0% 0%;
 }
