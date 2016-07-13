@@ -20,6 +20,14 @@
 	font-size: 7vw;
 	text-shadow: 1px 2px #333;
 }
+.title-font {
+	font-family: "Tangerine", cursive;
+}
+.div-heading {
+	font-size: 7vw;
+	color: #C1A35F;
+	text-align: center;
+}
 .our-slider-image {
 	filter: brightness(70%);
 }
@@ -138,4 +146,14 @@
 .cart-item-separator {
 	background: RGBA(102, 146, 129, 0.42);
 	padding: 1px;
+}
+.contact-heading {
+	padding: 20px;
+	padding-left: 0px;
+}
+.contact-us {
+	padding: 0;
+}
+.container-color {
+	background: rgba(222, 222, 222, 0.3) none repeat scroll 0% 0%;
 }
