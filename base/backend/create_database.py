@@ -7,19 +7,85 @@ postgres = psycopg2.connect(database = 'foodies', host = 'localhost', user = 'an
 cursor = postgres.cursor()
 
 
-# TABLE VENDORS
+cursor.execute("""
+   select exists(select 0 from pg_class where relname = 'accounts_record')
+""")
+
+presence = cursor.fetchone()[0]
+
+if presence:
+    print('accounts_record table exists')
+    cursor.execute("""
+        drop table accounts_record
+    """)
+
+cursor.execute("""
+   select exists(select 0 from pg_class where relname = 'ordersrecord')
+""")
+
+presence = cursor.fetchone()[0]
+if presence:
+    print('ordersrecord table exists')
+    cursor.execute("""
+        drop table ordersrecord
+    """)
+
+cursor.execute("""
+   select exists(select 0 from pg_class where relname = 'foodiesrecord')
+""")
+
+presence = cursor.fetchone()[0]
+
+if presence:
+    print('foodiesrecord table exists')
+    cursor.execute("""
+        drop table foodiesrecord
+    """)
+
+cursor.execute("""
+   select exists(select 0 from pg_class where relname = 'itemmenu')
+""")
+
+presence = cursor.fetchone()[0]
+
+if presence:
+    print('ItemsMenu table exist')
+    cursor.execute("""
+        drop table itemmenu
+    """)
+
 cursor.execute("""
    select exists(select 0 from pg_class where relname = 'vendors')
 """)
 
 presence = cursor.fetchone()[0]
-print(presence)
 
 if presence:
-    print('vendors table exists, deleting here')
+    print('vendors table exist')
     cursor.execute("""
         drop table vendors
     """)
+
+
+
+cursor.execute("""
+   select exists(select 0 from pg_class where relname = 'customers')
+""")
+
+presence = cursor.fetchone()[0]
+
+if presence:
+    print('customers table exist')
+    cursor.execute("""
+        drop table customers
+    """)
+try:
+    postgres.commit()
+except Exception as e:
+    postgres.rollback()
+    print(e)
+
+
 
 #                       CREATE TABLE VENDORS                                         #              
 cursor.execute("""
@@ -32,6 +98,7 @@ cursor.execute("""
         address text NOT NULL,
         imageaddress text,
         description text ,
+        offer text,
         password text NOT NULL
     )
 """)
@@ -44,19 +111,6 @@ except Exception as e:
     print(e)
 
 
-# TABLE ITEMSMENU
-cursor.execute("""
-   select exists(select 0 from pg_class where relname = 'itemmenu')
-""")
-
-presence = cursor.fetchone()[0]
-print(presence)
-
-if presence:
-    print('ItemsMenu table exists, deleting here')
-    cursor.execute("""
-        drop table itemmenu
-    """)
 #                       CREATE TABLE ITEMSMENU                                      #              
 cursor.execute("""
     create table itemmenu(
@@ -67,9 +121,8 @@ cursor.execute("""
         item_nature varchar(1) NOT NULL CHECK(item_nature in ('v','n')),
         price text NOT NULL,
         item_description text NOT NULL,
-        offer text,
         imageaddress text,
-        discount numeric ,
+        discount double precision,
         PRIMARY KEY(vendor_id, item_no)
     )
 """)
@@ -81,21 +134,6 @@ except Exception as e:
     print(e)
 
 
-#                               CHECK FOR TABLE CUSTOMERS                                #
-cursor.execute("""
-   select exists(select 0 from pg_class where relname = 'customers')
-""")
-
-presence = cursor.fetchone()[0]
-print(presence)
-
-
- #                       DELETE CUSTOMERS          IF EXISTS                            #
-if presence:
-    print('customers table exists, deleting here')
-    cursor.execute("""
-        drop table customers
-    """)
 
 #                       CREATE TABLE CUSTOMERS                                            #
 cursor.execute("""
@@ -149,21 +187,6 @@ except Exception as e:
 #     print(e)
 
 
-#                               CHECK FOR TABLE ACCOUNTS_RECORD                       #
-cursor.execute("""
-   select exists(select 0 from pg_class where relname = 'accounts_record')
-""")
-# it returns true if there is at least row in database and it will be a tuple
-presence = cursor.fetchone()[0]
-print(presence)
-
-
- #                       DELETE FOODIES_RECORD IF EXISTS                              #
-if presence:
-    print('accounts_record table exists, deleting here')
-    cursor.execute("""
-        drop table accounts_record
-    """)
 
 #                       CREATE TABLE ACCOUNTS_RECORD                                    #
 cursor.execute("""
@@ -179,19 +202,6 @@ except Exception as e:
     print(e)
 
 
-# TABLE ORDERsRECORD
-cursor.execute("""
-   select exists(select 0 from pg_class where relname = 'ordersrecord')
-""")
-
-presence = cursor.fetchone()[0]
-print(presence)
-
-if presence:
-    print(' table exists, deleting here')
-    cursor.execute("""
-        drop table ordersrecord
-    """)
 
 
 #                       CREATE TABLE ORDERsRECORD                                   #              
@@ -199,7 +209,7 @@ cursor.execute("""
     create table ordersrecord(
         order_id int PRIMARY KEY,
         vendor_id int NOT NULL references vendors(vendorid),
-        customer_id int NOT NULL references customers(cutomer_id),        
+        customer_id int NOT NULL references customers(customer_id),        
         ordered_placed_on timestamp NOT NULL,
         ordered_deliverd_on timestamp ,
         order_status character(1) CHECK(order_status in('y','n')),

@@ -1,12 +1,48 @@
+.hotel-names {
+    /*font-family: "Tangerine", cursive;*/
+    /*font-size: 1.5vw;*/
+    color: white;
+    z-index: 1;
+    position: absolute;
+    vertical-align: middle;
+    margin-top: 20%;
+    /*padding: 3%;*/
+/*    margin-bottom: auto;
+    margin-right: auto;
+    margin-left: auto;*/
+    /*width: 50%;*/
+
+/*position: relative;*/
+/*margin: 40px auto auto;*/
+/*height: 69px;*/
+/*margin-left: 22%;*/
+border: 10px solid #000;
+border: 10px solid rgba(0,0,0,.75);
+border-radius: 7px;
+}
+.our-hotel-text{
+   position: relative;
+   color: black;
+   border-color: white;
+   /*margin-right: -10%;*/
+   /*width: 270%;*/
+
+}
+.btn.btn-primary.dropdown-toggle.our-hotel-button {
+    background-color: white;
+    border-color: white;
+    color: #f5861f;
+    border-right-color: #efeaea;
+    align-self: left;
+    z-index: 2;
+}
 .ournav {
     background-color: transparent; 
     z-index: 4;
     border-color: transparent;
 }
 
-.ourcarousel{
 
-}
 .white_color{
 	color: white;
 }
@@ -17,11 +53,11 @@
 .black_color{
 	color: black;
 }
-/*.navbar-nav > li > a:hover,
+.navbar-nav > li > a:hover,
 .navbar-nav > li > a:focus {
 	color:  #bda05f;
     background-color: transparent;
-}*/
+}
 
 
 ul.nav li a, ul.nav li a:visited {
@@ -34,15 +70,15 @@ ul.nav li a:hover, ul.nav li a:active {
     font-size: small;
 }
 
-ul.nav li.active a {
+/*ul.nav li.active a {
     color: black !important;
     font-size: small;
-}
+}*/
 .ourdrop{
   background-color: transparent;
 }
 
-
+	
 @media only screen and (max-width: 766px) {
 .collapsing, .in {background-color: black;}
 .collapsing ul li a, .in ul li a {color: #555!important;}
@@ -71,9 +107,9 @@ ul.nav li.active a {
     visibility: visible;
 }
 */
-.dropdown:hover .dropdown-menu {
+/*.dropdown:hover .dropdown-menu {
     display: block;
-}
+}*/
 
 /*.nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
     margin-top: 0;
