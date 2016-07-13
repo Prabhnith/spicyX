@@ -43,10 +43,9 @@ function removeItem(counterID) {
 		}
 	}
 }
-
 function loadMenuItems() {
 	console.log("in m");
-	var pg = require('pg');
+	// var pg = require('pg');
 	ItemList = [
 		["Paneer Shahi ", "Mushroom sautéed with baby corn", "270", "V","dishID0"],
 		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N","dishID1"],
@@ -212,7 +211,7 @@ function addElementToCart(ItemList){
 	cartItems.appendChild(listItem);
 
 	separator = document.createElement("li");
-	separator.setAttribute("class", "divider our-divider");
+	separator.setAttribute("class", "divider cart-item-separator");
 	separator.setAttribute("role", "separator");
 	cartItems.appendChild(separator);
 }
