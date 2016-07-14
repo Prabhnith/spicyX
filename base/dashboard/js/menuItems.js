@@ -7,15 +7,12 @@ $(document).ready(function() {
     
     $(document).on('click', '.btn-add', function(e) {
         e.preventDefault();
-        
+
         var controlForm = $('table');
         var currentEntry = $('table>tbody>tr:last');
+        currentEntry[0].cells[7].firstElementChild.disabled=false;
         var newEntry = $(currentEntry.clone()).appendTo(controlForm);
-        // newEntry.find('.VendorMenuItem:firstChild').val('2');  
-        // newEntry.getElementsByClassName("VendorMenuItem")[0].innerHTML="2";
-                                               //Remove the Data - as it is cloned from the above
-        var rowCount = $('table >tbody:last >tr').length;
-        document.getElementsByName("VendorMenuItem")[rowCount-1].lastChild.data=rowCount;
+
         //Add the button  
         var rowCount = $('table >tbody:last >tr').length;
         if(rowCount > 1) {
@@ -33,7 +30,6 @@ $(document).ready(function() {
         if(rowCount == 1) {
             document.getElementsByClassName('btn-remove')[0].disabled = true;
         }
-
         e.preventDefault();
         return false;
     });
