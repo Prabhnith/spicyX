@@ -33,13 +33,60 @@ func init() {
 func main() {
 	r := gin.Default()
 
-	//hosting client.html page
+	//*************************Hosting client.html page
 	r.GET("/client.html", func(c *gin.Context) {
 		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/backend/client.html")
 		c.Data(200, "text/html", res)
 	})
 
-	//Registering vendors
+	r.GET("/dashboard.html", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/dashboard.html")
+		c.Data(200, "text/html", res)
+	})
+	r.GET("/dash.html", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/dash.html")
+		c.Data(200, "text/html", res)
+	})
+	r.GET("/table.html", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/table.html")
+		c.Data(200, "text/html", res)
+	})
+	r.GET("/user.html", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/user.html")
+		c.Data(200, "text/html", res)
+	})
+
+	//**********************fetching Javascript files file
+	r.GET("/js/:js_file", func(c *gin.Context) {
+		//to ser
+		jsFile := c.Param("js_file")
+
+		res, err := ioutil.ReadFile("/home/anil/foodies/spicyX/base/js/" + jsFile)
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(404, "error while fetching file")
+		}
+		c.Data(200, "application/javascript", res)
+
+		// c.Data(200, path.Join("applications", "javascript"), res)
+	})
+
+	//********************fetching CSS files
+	r.GET("/css/:css_file", func(c *gin.Context) {
+		//to ser
+		cssFile := c.Param("css_file")
+
+		res, err := ioutil.ReadFile("/home/anil/foodies/spicyX/base/css/" + cssFile)
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(404, "error while fetching file")
+		}
+		c.Data(200, "text/css", res)
+
+		// c.Data(200, path.Join("applications", "javascript"), res)
+	})
+
+	//********************Registering vendors
 	r.POST("/registervendor", func(c *gin.Context) {
 		var ven vendor
 
@@ -200,10 +247,6 @@ func main() {
 		c.JSON(200, items)
 		fmt.Println("Vendors Menu  sent")
 	})
-
-	// r.GET("js:js_file", func(c *gin.Context) {
-	// 	res := ioutilReadFile("")
-	// })
 
 	fmt.Println("\n\n\t #####     Foodies server live on :7070     #####")
 	r.Run(":7070")
