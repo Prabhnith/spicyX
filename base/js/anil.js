@@ -9,8 +9,8 @@
 
   // });
 
-// <!-- <li><a href="#">A9</a></li> -->
-  window.addEventListener('load',function() {
+  // <!-- <li><a href="#">A9</a></li> -->
+  window.addEventListener('load', function() {
       //To add hotel-names to  drop drown
       var drop = document.getElementsByClassName("hotel-names-list");
       fetch('/getvendors', {
@@ -23,121 +23,148 @@
       }).then(function(response) {
           return response.json();
       }).then(function(hotels) {
-          for (var i=0;i<hotels.length;i++) {
-                    console.log(hotels[i]["vendor_id"],hotels[i]["vendorname"]);
-                    var listItem = document.createElement("li");
-                    var a = document.createElement("a");
-                     // a.SetAttribute("href","#");
-                     a.setAttribute("id",hotels[i]["vendor_id"]);
-                     a.innerHTML = hotels[i]["vendorname"];
-                     listItem.appendChild(a);
-                     drop[0].appendChild(listItem);
+          for (var i = 0; i < hotels.length; i++) {
+              console.log(hotels[i]["vendor_id"], hotels[i]["vendorname"]);
+              var listItem = document.createElement("li");
+              var a = document.createElement("a");
+              // a.SetAttribute("href","#");
+              a.setAttribute("id", hotels[i]["vendor_id"]);
+              a.innerHTML = hotels[i]["vendorname"];
+              listItem.appendChild(a);
+              drop[0].appendChild(listItem);
           }
       }, function(err) {
-        console.log(err);
+          console.log(err);
       })
   })
 
   //Function to register vendor Called from dashboard
   function register_vendor() {
-      var name = document.getElementById("vendor_name").value;
-      var email = document.getElementById("vendor_email").value;
-      var first = document.getElementById("owner_first_name").value;
-      var last_name = document.getElementById("owner_last_name").value;
-      var mobile = document.getElementById("vendor_mobile").value;
-      var addr = document.getElementById("vendor_address1").value;
-      var city = document.getElementById("vendor_address_city").value;
-      var country = document.getElementById("vendor_address_country").value;
-      var pin = document.getElementById("vendor_address_postalcode").value;
-      var description = document.getElementById("vendor_description").value;
-      var offers = document.getElementById("vendor_offers").value;
-      var vendor_name = document.getElementById("vendor_name").value;
+      console.log("pressed");
+      var name = document.getElementById("vendor_name");
+      var email = document.getElementById("vendor_email");
+      var first = document.getElementById("owner_first_name");
+      var last_name = document.getElementById("owner_last_name");
+      var mobile = document.getElementById("vendor_mobile");
+      var addr = document.getElementById("vendor_address1");
+      var city = document.getElementById("vendor_address_city");
+      var country = document.getElementById("vendor_address_country");
+      var pin = document.getElementById("vendor_address_postalcode");
+      var description = document.getElementById("vendor_description");
+      var offers = document.getElementById("vendor_offers");
+      var vendor_name = document.getElementById("vendor_name");
 
-
-
-      var msg = {
-          "owner": first + " " + last_name,
-          "vendorname": name,
-          "email": email,
-          "mobile": [mobile],
-          "address": addr + " " + city + " " + country + " " + pin,
-          "imageaddress": "not available",
-          "description": description,
-          "offer": offers,
-          "password": "desitadka123"
+      if (name.validity.valueMissing || first.validity.valueMissing || last_name.validity.valueMissing) {
+          alert("Enter Name fields.");
       }
-      fetch('/registervendor', {
-          method: 'POST',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+      if (mobile.validity.valueMissing) {
+          alert("Enter mobile number");
+      }
+      if (!mobile.validity.valueMissing) {
+          if (mobile.value.length != 10) {
+              alert("Enter 10-digit mobile number");
+          }
+      }
+      if (!email.validity.valid) {
+          alert("Enter valid email address.");
+      }
+      if (!name.validity.valueMissing &&
+          email.validity.valid &&
+          !first.validity.valueMissing &&
+          !last_name.validity.valueMissing &&
+          !mobile.validity.valueMissing &&
+          !description.validity.valueMissing) {
 
-          },
-          credentials: 'same-origin',
-          body: JSON.stringify(msg)
-      })
+          var msg = {
+              "owner": first.value + " " + last_name.value,
+              "vendorname": name.value,
+              "email": email.value,
+              "mobile": [mobile.value],
+              "address": addr.value + " " + city.value + " " + country.value + " " + pin.value,
+              "imageaddress": "not available",
+              "description": description.value,
+              "offer": offers.value,
+              "password": "desitadka123"
+          }
+          fetch('/registervendor', {
+              method: 'POST',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              },
+              credentials: 'same-origin',
+              body: JSON.stringify(msg)
+          });
+          alert("Form submit successfully.");
+      }
   }
 
   // var count =0 ;
-//Function to add items to Menu 
+  //Function to add items to Menu 
   function add_items() {
 
       var name = document.getElementById('name').value;
       var price = document.getElementById('price').value;
       var discount = document.getElementById('discount').value;
       var nature;
-      if (document.getElementById('veg').checked){
-          nature= true;
-      }else if(document.getElementById('n_veg').checked){
+      if (document.getElementById('veg').checked) {
+          nature = true;
+      } else if (document.getElementById('n_veg').checked) {
           nature = false;
       }
       var Itype;
-      if (document.getElementById('starter').checked){
+      if (document.getElementById('starter').checked) {
           Itype = 'starter';
-      }else if(document.getElementById('main').checked){
+      } else if (document.getElementById('main').checked) {
           Itype = 'main';
-      }else if(document.getElementById('desert').checked){
+      } else if (document.getElementById('desert').checked) {
           Itype = 'desert';
       }
       var description = document.getElementById('description').value;
-        
-      var tableid = document.getElementById("table-body");   
+
+      var tableid = document.getElementById("table-body");
 
       var nrow = document.createElement('tr');
 
       var c1 = document.createElement('td');
-      c1.setAttribute('class',"count");
+      c1.setAttribute('class', "count");
       nrow.appendChild(c1);
 
-      var c2 = document.createElement('td'); 
-      c2.setAttribute('spellcheck',false); 
-      c2.setAttribute('contenteditable',true);
-      c2.innerHTML = name; 
+      var c2 = document.createElement('td');
+      c2.setAttribute('spellcheck', false);
+      c2.setAttribute('contenteditable', true);
+      c2.innerHTML = name;
       nrow.appendChild(c2);
 
-      var c3 = document.createElement('td'); 
-      c3.setAttribute('spellcheck',false); 
-      c3.setAttribute('contenteditable',true);
-      c3.innerHTML = price; 
+      var c3 = document.createElement('td');
+      c3.setAttribute('spellcheck', false);
+      c3.setAttribute('contenteditable', true);
+      c3.innerHTML = price;
       nrow.appendChild(c3);
 
-      var c4 = document.createElement('td'); 
-      c4.setAttribute('spellcheck',false); 
-      c4.setAttribute('contenteditable',true);
-      c4.innerHTML = Itype; 
+      var c4 = document.createElement('td');
+      c4.setAttribute('spellcheck', false);
+      c4.setAttribute('contenteditable', true);
+      c4.innerHTML = Itype;
       nrow.appendChild(c4);
 
-      var c5 = document.createElement('td'); 
-      c5.setAttribute('spellcheck',false); 
-      c5.setAttribute('contenteditable',true);
-      c5.innerHTML = nature; 
+      var c5 = document.createElement('td');
+      c5.setAttribute('spellcheck', false);
+      c5.setAttribute('contenteditable', true);
+      c5.innerHTML = nature;
       nrow.appendChild(c5);
 
-      var c6 = document.createElement('td'); 
-      c6.setAttribute('spellcheck',false); 
-      c6.setAttribute('contenteditable',true);
-      c6.innerHTML = discount; 
+      var c6 = document.createElement('td');
+      c6.setAttribute('spellcheck', false);
+      c6.setAttribute('contenteditable', true);
+      c6.innerHTML = discount;
       nrow.appendChild(c6);
+
+      var c7 = document.createElement('td');
+      c7.setAttribute('spellcheck', false);
+      c7.setAttribute('contenteditable', true);
+      c7.innerHTML = description;
+      nrow.appendChild(c7);
 
       tableid.appendChild(nrow);
 
@@ -146,9 +173,36 @@
       // $(rows).appendTo("#vendor_menu_items tbody");
   }
 
-function submit_items(){
-   var table = document.getElementById('vendor_menu_items');
-   var totalrows= document.getElementById('vendor_menu_items').rows.length;
+  function submit_items() {
+      var table = document.getElementById('vendor_menu_items');
+      var totalrows = document.getElementById('vendor_menu_items').rows.length;
+
+      var json_obj = {};
+
+      var totalCol = 6;
+
+      for (var x = 1; x < totalrows; x++) {
+              json_obj[x-1] = { "vendor_id" :1,
+                            "item_name"  :table.rows[x].cells[1].innerHTML,
+                            "item_type"  :table.rows[x].cells[3].innerHTML,
+                            "item_nature":table.rows[x].cells[4].innerHTML,
+                            "item_description" : table.rows[x].cells[6].innerHTML,
+                            "price" :table.rows[x].cells[2].innerHTML,
+                            "imageaddress" :"", 
+                            "discount":table.rows[x].cells[5].innerHTML
+                          } 
+              // alert(table.rows[x].cells[y].innerHTML);            
+          }
+          fetch('/additems', {
+              method: 'POST',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              },
+              credentials: 'same-origin',
+              body: JSON.stringify(json_obj)
+          });
+          alert("Form submit successfully.");
 
 
-}
+      }

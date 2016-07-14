@@ -38,7 +38,7 @@
     }
 
     function loadDashboard() {
-        $("#content").load("dash");
+ $("#content").load("dash");
     }
 
     function loadMenuItems() {
@@ -46,6 +46,11 @@
     }
 
     function loadDeliveryItems() {
+        }
+        function loadViewMenuItems(){
+        $("#content").load("viewMenuItems.html");
+        }
+        function loadDeliveryItems(){
         $("#content").load("delivery");
     }
     </script>
@@ -60,33 +65,40 @@
                     <a href="#" class="simple-text">
                             SpicyX
                         </a>
-                </div>
-                <ul class="nav">
-                    <li>
-                        <a onclick="loadUserProfile();">
-                            <i class="pe-7s-user"></i>
-                            <p>Vendor Profile</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a onclick="loadMenuItems()">
-                            <i class="pe-7s-note2"></i>
-                            <p>Menu Items</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a onclick="loadDeliveryItems()">
-                            <i class="pe-7s-news-paper"></i>
-                            <p>Delivery Status</p>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a onclick="loadDashboard();">
-                            <i class="pe-7s-graph"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                </ul>
+
+                    </div>
+                    <ul class="nav">
+                        <li>
+                            <a onclick="loadUserProfile();">
+                                <i class="pe-7s-user"></i>
+                                <p>Vendor Profile</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="loadMenuItems()">
+                                <i class="pe-7s-note2"></i>
+                                <p>Add Menu Items</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="loadViewMenuItems()">
+                                <i class="pe-7s-note2"></i>
+                                <p>View Menu Items</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="loadDeliveryItems()">
+                                <i class="pe-7s-news-paper"></i>
+                                <p>Delivery Status</p>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a onclick="loadDashboard();">
+                                <i class="pe-7s-graph"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                    </ul>
             </div>
         </div>
         <div class="main-panel">

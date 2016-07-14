@@ -149,9 +149,9 @@ func main() {
 
 	//I**************************tem menu updation
 	r.POST("/additems", func(c *gin.Context) {
-		var menu MENU
+		var ITEMS []item
 
-		c.BindJSON(&menu)
+		c.BindJSON(&ITEMS)
 
 		fmt.Println("\n\nRequest Received for menu updation: \n\n ")
 		// fmt.Printf("%#v", menu)
@@ -159,13 +159,12 @@ func main() {
 
 		defer tx.Rollback() // it will be executed after the completion of local function
 
-		for _, item := range menu.ITEMS {
-			// fmt.Println(item.Vendorid, item.Itemno, item.Name, item.IType, item.Nature, item.Price, item.Description,
-			// 	item.Offer, item.Image, item.Discount)
+		for _, val := range ITEMS {
+			fmt.Println("vals", val.Vendorid, val.Itemno, val.Name, val.IType, val.Nature, val.Price, val.Description, val.Image, val.Discount)
 			_, err := tx.Exec(`
 				INSERT INTO itemmenu (vendor_id ,item_no ,item_name ,item_type ,item_nature ,price , item_description ,imageaddress ,discount) 
-				values ($1,$2,$3,$4,$5,$6,$7,$8,$9)
-		`, item.Vendorid, item.Itemno, item.Name, item.IType, item.Nature, item.Price, item.Description, item.Image, item.Discount)
+				         values ($1,$2,$3,$4,$5,$6,$7,$8,$9)`, val.Vendorid, val.Itemno, val.Name, val.IType, val.Nature, val.Price,
+				val.Description, val.Image, val.Discount)
 
 			if err != nil {
 				// c.JSON(500, "error")
@@ -263,12 +262,12 @@ func main() {
 		defer rows.Close()
 
 		// var vendors = make(map[string]int)
-		var items MENU
+		items := make([]item, 0)
 
 		for rows.Next() {
 			var t item
 			err := rows.Scan(&t.Itemno, &t.Name, &t.IType, &t.Nature, &t.Price, &t.Description, &t.Image, &t.Discount)
-			items.ITEMS = append(items.ITEMS, t)
+			items = append(items, t)
 			if err != nil {
 				fmt.Println(err)
 				c.JSON(500, "error while retreiving vendors menu")
@@ -313,9 +312,9 @@ type CSID struct {
 	Customerid int `json:"customerid,omitempty"`
 }
 
-type MENU struct {
-	ITEMS []item `json:"items"`
-}
+// type MENU struct {
+// 	ITEMS []item `json:"items"`
+// }
 
 //Menu updation
 type item struct {

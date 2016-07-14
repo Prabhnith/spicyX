@@ -51,7 +51,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Item Description</label>
-                                                <textarea rows="5" class="form-control" id=" description" placeholder="Here can be your description" ></textarea>
+                                                <textarea rows="5" class="form-control" id="description" placeholder="Here can be your description" ></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -71,6 +71,8 @@
                     <div class="header">
                         <h4 class="title">Restaurant Menu </h4>
                         <p class="category">List all the items available in your Restaurant</p>
+                        <button  class="btn  btn-primary pull-right" onclick="submit_items()">
+                           <i class="glyphicon glyphicon-plus gs" ></i> submit items</button>
                     </div>
                     <div class="content table-responsive table-full-width">
                         <table id="vendor_menu_items" class="table table-hover table-bordered ">
@@ -88,6 +90,9 @@
                             <tbody id="table-body">
 <!--                                 <tr>
                               <td class="count"></td>
+                            <tbody>
+                                <tr>
+                                    <td class="count"></td>
                                     <td spellcheck="false" contenteditable="true"></td>
                                     <td spellcheck="false" contenteditable="true"></td>
                                     <td spellcheck="false" contenteditable="true"></td>
@@ -103,8 +108,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <button id="add_row" class="btn btn-add btn-primary pull-right">
-                    <i class="glyphicon glyphicon-plus gs" ></i> Add items</button>
+
                 </div>
             </div>
         </div>
