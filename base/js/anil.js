@@ -30,42 +30,64 @@
 
   // }
 
-  //Function to register vendor Called from dashboard
+   //Function to register vendor Called from dashboard
   function register_vendor() {
-      var name = document.getElementById("vendor_name").value;
-      var email = document.getElementById("vendor_email").value;
-      var first = document.getElementById("owner_first_name").value;
-      var last_name = document.getElementById("owner_last_name").value;
-      var mobile = document.getElementById("vendor_mobile").value;
-      var addr = document.getElementById("vendor_address1").value;
-      var city = document.getElementById("vendor_address_city").value;
-      var country = document.getElementById("vendor_address_country").value;
-      var pin = document.getElementById("vendor_address_postalcode").value;
-      var description = document.getElementById("vendor_description").value;
-      var offers = document.getElementById("vendor_offers").value;
-      var vendor_name = document.getElementById("vendor_name").value;
+    console.log("pressed");
+    var name = document.getElementById("vendor_name");
+    var email = document.getElementById("vendor_email");
+    var first = document.getElementById("owner_first_name");
+    var last_name = document.getElementById("owner_last_name");
+    var mobile = document.getElementById("vendor_mobile");
+    var addr = document.getElementById("vendor_address1");
+    var city = document.getElementById("vendor_address_city");
+    var country = document.getElementById("vendor_address_country");
+    var pin = document.getElementById("vendor_address_postalcode");
+    var description = document.getElementById("vendor_description");
+    var offers = document.getElementById("vendor_offers");
+    var vendor_name = document.getElementById("vendor_name");
 
-
-
+    if(name.validity.valueMissing || first.validity.valueMissing || last_name.validity.valueMissing){
+      alert("Enter Name fields.");
+    }
+    if(mobile.validity.valueMissing){
+      alert("Enter mobile number");
+    }
+    if(!mobile.validity.valueMissing){
+      if(mobile.value.length != 10){
+        alert("Enter 10-digit mobile number");
+      }
+    }
+    if(!email.validity.valid){
+      alert("Enter valid email address.");
+    }
+    if (!name.validity.valueMissing &&
+      email.validity.valid &&
+      !first.validity.valueMissing &&
+      !last_name.validity.valueMissing &&
+      !mobile.validity.valueMissing &&
+      !description.validity.valueMissing) {
+      
       var msg = {
-          "owner": first + " " + last_name,
-          "vendorname": name,
-          "email": email,
-          "mobile": [mobile],
-          "address": addr + " " + city + " " + country + " " + pin,
-          "imageaddress": "not available",
-          "description": description,
-          "offer": offers,
-          "password": "desitadka123"
+        "owner": first.value + " " + last_name.value,
+        "vendorname": name.value,
+        "email": email.value,
+        "mobile": [mobile.value],
+        "address": addr.value + " " + city.value + " " + country.value + " " + pin.value,
+        "imageaddress": "not available",
+        "description": description.value,
+        "offer": offers.value,
+        "password": "desitadka123"
       }
       fetch('/registervendor', {
-          method: 'POST',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-
-          },
-          credentials: 'same-origin',
-          body: JSON.stringify(msg)
-      })
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify(msg)
+      });
+      alert("Form submit successfully.");
+    }
   }
+

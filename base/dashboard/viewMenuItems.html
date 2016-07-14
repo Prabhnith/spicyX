@@ -1,0 +1,47 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Restaurant Menu </h4>
+                        <p class="category">List all the items available in your Restaurant</p>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table id="vendor_menu_items" class="table table-hover table-bordered ">
+                            <thead>
+                                <th>ID</th>
+                                <th>Item Name</th>
+                                <th>Item Price</th>
+                                <th>Item Type</th>
+                                <th>Item Nature</th>
+                                <th>Discount</th>
+                                <th>Delete</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="count"></td>
+                                    <td spellcheck="false" contenteditable="true"></td>
+                                    <td spellcheck="false" contenteditable="true"></td>
+                                    <td spellcheck="false" contenteditable="true"></td>
+                                    <td spellcheck="false" contenteditable="true"></td>
+                                    <td spellcheck="false" contenteditable="true"></td>
+                                    <td spellcheck="false" contenteditable="true"></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-remove" type="button">
+                                        <i class="glyphicon glyphicon-minus gs"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button id="add_row" class="btn btn-add btn-primary pull-right">
+                    <i class="glyphicon glyphicon-plus gs"></i> Add items</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="./js/menuItems.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/menu.css">
+</div>
