@@ -7,24 +7,24 @@
                                 <h4 class="title">Menu Card </h4>
                             </div>
                             <div class="content">
-                                <form>
+                                <form id="item-form">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Item Name</label>
-                                                <input type="text" class="form-control" placeholder="item name" >
+                                                <input type="text" id="name" class="form-control" placeholder="item name"  required>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">Item Price</label>
-                                                <input type="text" class="form-control" placeholder="Rs.">
+                                                <input type="text" id="price" class="form-control" placeholder="Rs."  required>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="">Item Discount</label>
-                                                <input type="text" class="form-control" placeholder="%">
+                                                <input type="text" id="discount" class="form-control" placeholder="%">
                                             </div>
                                         </div>
                                     </div>
@@ -33,16 +33,16 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Item Nature</label><br>
-                                                <label><input type="radio" name="itemNature">   Veg</label><br>
-                                                <label><input type="radio" name="itemNature">   Non Veg</label><br>
+                                                <label><input type="radio" id="veg" name="itemNature"  required>   Veg</label><br>
+                                                <label><input type="radio" id="n_veg" name="itemNature">   Non Veg</label><br>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Item Type</label><br>
-                                                <label><input type="radio" name="itemType">   Starters</label><br>
-                                                <label><input type="radio" name="itemType">   Main Course</label><br>
-                                                <label><input type="radio" name="itemType">   Deserts</label><br>
+                                                <label><input type="radio" id="starter" name="itemType"  required>   Starters</label><br>
+                                                <label><input type="radio" id="main" name="itemType">   Main Course</label><br>
+                                                <label><input type="radio" id="desert" name="itemType">   Deserts</label><br>
                                             </div>                                        
                                         </div>                                        
                                     </div>
@@ -51,14 +51,16 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Item Description</label>
-                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" ></textarea>
+                                                <textarea rows="5" class="form-control" id=" description" placeholder="Here can be your description" ></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Add to Menu Card</button>
+                                </form>    
+                                  <!-- <input id = "button" type = "button" value = " Add " onclick = "AddData()"> -->
+                                    <!-- <button  class="btn btn-info btn-fill pull-right" onclick="add_items()" >Add to Menu Card</button> -->
+                                    <input  type="button" class="btn btn-info btn-fill pull-right" value="Add to Menu Card" onclick="add_items()" >
                                     <div class="clearfix"></div>
-                                </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -79,38 +81,30 @@
                                 <th>Item Type</th>
                                 <th>Item Nature</th>
                                 <th>Discount</th>
+                                <th>Description</th>
+                                
                                 <th>Delete</th>
                             </thead>
-                            <tbody>
-                                <tr>
-<<<<<<< HEAD:base/dashboard/menuItems.html
-                                    <!-- <td name="VendorMenuItem">1</td> -->
-                                    <td class="count"></td>
-                                    <td spellcheck="false" contenteditable="true">Gulab Jamun</td>
-                                    <td spellcheck="false" contenteditable="true">Rs.70</td>
-                                    <td spellcheck="false" contenteditable="true">Deserts</td>
-                                    <td spellcheck="false" contenteditable="true">Veg</td>
-                                    <td spellcheck="false" contenteditable="true">0%</td>
-=======
-                                    <td name="VendorMenuItem">1</td>
+                            <tbody id="table-body">
+<!--                                 <tr>
+                              <td class="count"></td>
                                     <td spellcheck="false" contenteditable="true"></td>
                                     <td spellcheck="false" contenteditable="true"></td>
                                     <td spellcheck="false" contenteditable="true"></td>
                                     <td spellcheck="false" contenteditable="true"></td>
                                     <td spellcheck="false" contenteditable="true"></td>
                                     <td spellcheck="false" contenteditable="true"></td>
->>>>>>> anil:base/dashboard/table.html
                                     <td>
                                         <button class="btn btn-danger btn-remove" type="button">
                                         <i class="glyphicon glyphicon-minus gs"></i>
                                         </button>
                                     </td>
-                                </tr>
+                                </tr>  -->
                             </tbody>
                         </table>
                     </div>
                     <button id="add_row" class="btn btn-add btn-primary pull-right">
-                    <i class="glyphicon glyphicon-plus gs"></i> Add items</button>
+                    <i class="glyphicon glyphicon-plus gs" ></i> Add items</button>
                 </div>
             </div>
         </div>

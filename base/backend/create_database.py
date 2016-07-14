@@ -118,7 +118,7 @@ cursor.execute("""
         item_no bigint NOT NULL ,        
         item_name text NOT NULL,
         item_type varchar(10) NOT NULL CHECK(item_type in ('starter','main','desert')) ,
-        item_nature varchar(1) NOT NULL CHECK(item_nature in ('v','n')),
+        item_nature boolean NOT NULL ,
         price text NOT NULL,
         item_description text NOT NULL,
         imageaddress text,

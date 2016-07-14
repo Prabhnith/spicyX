@@ -230,12 +230,12 @@ func main() {
 		defer rows.Close()
 
 		// var vendors = make(map[string]int)
-		var ven getvendors
+		ven := make([]VendorsToSend, 0)
 
 		for rows.Next() {
-			var t vendorsToSend
+			var t VendorsToSend
 			err := rows.Scan(&t.Vendorid, &t.Vendorname)
-			ven.Vendors = append(ven.Vendors, t)
+			ven = append(ven, t)
 			if err != nil {
 				fmt.Println(err)
 				c.JSON(500, "error while retreiving vendors data")
@@ -323,17 +323,14 @@ type item struct {
 	Itemno      int     `json:"item_no"`
 	Name        string  `json:"item_name"`
 	IType       string  `json:"item_type"`
-	Nature      string  `json:"item-nature"`
+	Nature      bool    `json:"item-nature"`
 	Description string  `json:"item_description"`
 	Price       string  `json:"price"`
 	Image       string  `json:"imageaddress,omitempty"`
 	Discount    float64 `json:"discount,omitempty"`
 }
 
-type getvendors struct {
-	Vendors []vendorsToSend `json:"vendors"`
-}
-type vendorsToSend struct {
+type VendorsToSend struct {
 	Vendorid   int    `json:"vendor_id"`
 	Vendorname string `json:"vendorname"`
 }
