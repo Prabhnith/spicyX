@@ -42,7 +42,7 @@ func main() {
 		tx, _ := db.Begin() // tx => transaction , _ => error and execute
 
 		defer tx.Rollback() // it will be executed after the completion of local function
-
+		fmt.Println(ven.Owner, ven.Name, ven.Email, ven.Mobile, ven.Address, ven.Image, ven.Description, ven.Offer, ven.Password)
 		// var track ID
 		var num int64
 		// insert into users table
@@ -167,7 +167,8 @@ func main() {
 
 		fmt.Println("\n\nRequest for retreiving vendors menu Received : \n\n")
 
-		rows, err := db.Query(` SELECT  * from itemmenu where vendor_id = $1 `, id.Vendorid)
+		rows, err := db.Query(` SELECT  vendor_id, item_no, item_name, item_type, item_nature, price, item_description, imageaddress, discount
+		                        from itemmenu where vendor_id = $1 `, id.Vendorid)
 
 		if err != nil {
 			fmt.Println(err)
