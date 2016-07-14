@@ -10,25 +10,25 @@
   });
 
 
-  window.onload = function() {
-      //To add hotel-names to  drop drown
-      fetch('/getvendors', {
-          method: 'GET',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-          },
-          credentials: 'same-origin',
-      }).then(function(response) {
-          return response.json()
-      }).then(function(hotels) {
-          for () {
+  // window.onload = function() {
+  //     //To add hotel-names to  drop drown
+  //     fetch('/getvendors', {
+  //         method: 'GET',
+  //         headers: {
+  //             'Accept': 'application/json',
+  //             'Content-Type': 'application/json'
+  //         },
+  //         credentials: 'same-origin',
+  //     }).then(function(response) {
+  //         return response.json()
+  //     }).then(function(hotels) {
+  //         for () {
 
-          }
-      })
+  //         }
+  //     })
 
 
-  }
+  // }
 
   //Function to register vendor Called from dashboard
   function register_vendor() {

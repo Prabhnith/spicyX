@@ -41,8 +41,8 @@ func main() {
 		c.Data(200, "text/html", res)
 	})
 
-	r.GET("/client", func(c *gin.Context) {
-		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/backend/client.html")
+	r.GET("/menuItems", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/menuItems.html")
 		c.Data(200, "text/html", res)
 	})
 
