@@ -1,205 +1,73 @@
-  $(document).ready(function(){
+  $(document).ready(function() {
       $(window).scroll(function() { // check if scroll event happened
-        if ($(document).scrollTop() > 50) { // check if user scrolled more than 50 from top of the browser window
-          $(".ournav").css("background-color", "rgba(0, 0, 0, 0.7)"); // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
-        } else {
-          $(".ournav").css("background-color", "transparent"); // if not, change it back to transparent
-        }
+          if ($(document).scrollTop() > 50) { // check if user scrolled more than 50 from top of the browser window
+              $(".ournav").css("background-color", "rgba(0, 0, 0, 0.7)"); // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
+          } else {
+              $(".ournav").css("background-color", "transparent"); // if not, change it back to transparent
+          }
       });
-    });
+  });
 
 
-    // var elem = document.querySelector('.ournav');
-    // var animation = elem.animate([
-    //     {background-color: rgba(0, 0, 0, 0.1), top: 0px },
-    //     {background-color: rgba(0, 0, 0, 0.2), top: 10px},
-    //     {background-color: rgba(0, 0, 0, 0.3), top: 20px},
-    //     {background-color: rgba(0, 0, 0, 0.8), top: 100px},
-    // ], {
-    //     // direction: 'alternate',
-    //     // duration: 500,
-    //     // iterations: Infinity
-    // });
+window.onload = function(){
+//To add hotel-names to  drop drown
+      fetch('/getvendors', {
+          method: 'GET',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+         },
+          credentials: 'same-origin',
+      }).then(function(response){
+          return response.json()
+      }).then(function(hotels){
+        for(){
+              
+        }
+      })
 
 
- $(document).ready(function(){
-
-    $.get("http://localhost:7070/getvendors", function(data,success){
-
-        // alert("Data: Status: " + status);
-        alert("Data: Status: ");
-         
-    });
-   
- }); 
-
-
-window.onload = function() {
-	loadMenuItems();
 }
 
-function addItem(id) {
-	var itemCounter = document.getElementById(id);
-	itemCounter.innerHTML = +itemCounter.innerHTML + 1;
-}
-
-function removeItem(id) {
-	var itemCounter = document.getElementById(id);
-	if (+itemCounter.innerHTML != 0) {
-		itemCounter.innerHTML = +itemCounter.innerHTML - 1;
-	}
-}
-
-function loadMenuItems() {
-	console.log("in m");
-	
-	ItemList = [
-		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
-		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
-		["Corn Korma", "garlic cloves and spice", "170", "V"],
-		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
-		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
-		["Corn Korma", "garlic cloves and spice", "170", "V"]
-	];
-
-	for (let i = 0; i < ItemList.length; i++) {
-		menuList = document.getElementById("menu-list");
-
-		listItem = document.createElement("li");
-		listItem.setAttribute("class", "media");
-
-		stickerDiv = document.createElement("div");
-		stickerDiv.setAttribute("class", "media-left");
-
-		stickerImg = document.createElement("img");
-		stickerImg.setAttribute("class", "media-object stickers");
-
-		if (ItemList[i][3] == "V") {
-			stickerImg.setAttribute("src", "./img/veg-sticker.png");
-			stickerImg.setAttribute("alt", "veg");
-		} else {
-			stickerImg.setAttribute("src", "./img/non-veg-sticker.png");
-			stickerImg.setAttribute("alt", "non-veg");
-		}
-		stickerDiv.appendChild(stickerImg);
-		listItem.appendChild(stickerDiv);
-		itemName = document.createElement("div");
-		itemName.setAttribute("class", "media-body our-media-body");
-
-		itemHeading = document.createElement("h4");
-		itemHeading.setAttribute("class", "media-heading");
-		if (ItemList[i][3] == "V") {
-			itemHeading.setAttribute("role", "veg");
-		} else {
-			itemHeading.setAttribute("role", "nveg");
-		}
-		itemHeading.innerHTML = ItemList[i][0];
-
-		addItemSymbol = document.createElement("button");
-		addItemSymbol.setAttribute("class", "btn glyphicon glyphicon-plus add-button pull-right");
-		addItemSymbol.setAttribute("id", "menuItemBtn"+i);
-		addItemSymbol.setAttribute("onclick", "addToCart(id);");
-		itemHeading.appendChild(addItemSymbol);
-
-		priceTag = document.createElement("p");
-		priceTag.setAttribute("class", "pull-right price-tag");
-		priceTag.innerHTML = "₹ " + ItemList[i][2];
-		itemHeading.appendChild(priceTag);
-
-		itemName.appendChild(itemHeading);
-
-		itemDescription = document.createElement("p");
-		itemDescription.setAttribute("class", "our-menu-content");
-		itemDescription.innerHTML = ItemList[i][1];
-		itemName.appendChild(itemDescription);
-		listItem.appendChild(itemName);
-
-		menuList.appendChild(listItem);
-
-		separator = document.createElement("li");
-		separator.setAttribute("class", "divider our-divider");
-		separator.setAttribute("role", "separator");
-		menuList.appendChild(separator);
-	}
-}
-
-function addToCart(i) {
-	var btn = document.getElementById(i);
-	var dishName = btn.parentNode.firstChild.data;
-	var dishPrice = btn.parentNode.children[1].innerHTML;
-	var dishType = btn.parentNode.attributes[1].textContent;
-	var item = [];
-	item.push(dishName, dishPrice, dishType);
-	loadCartItems(item);
-};
-
-itemCounterID = 0;
-
-function loadCartItems(ItemList) {
-	itemCounterID++;
-	console.log(ItemList.length);
-	cartItems = document.getElementById("cartItems");
-	listItem = document.createElement("li");
-	listItem.setAttribute("class", "media media-margin");
-
-	plusMinusDiv = document.createElement("div");
-	plusMinusDiv.setAttribute("class", "media-left btn-group-vertical cart-plus-minus-buttons-group");
-
-	plusBtn = document.createElement("button");
-	plusBtn.setAttribute("class", "btn cart-plus-minus-buttons");
-	plusBtn.setAttribute("onclick", "addItem('itemCounter" + itemCounterID + "');");
-
-	plusIcon = document.createElement("span");
-	plusIcon.setAttribute("class", "glyphicon glyphicon-plus");
-	plusBtn.appendChild(plusIcon);
-	plusMinusDiv.appendChild(plusBtn);
-
-	itemCounter = document.createElement("span");
-	itemCounter.setAttribute("class", "item-counter");
-	itemCounter.setAttribute("id", "itemCounter" + itemCounterID);
-	itemCounter.innerHTML = 1;
-	plusMinusDiv.appendChild(itemCounter);
+//Function to register vendor Called from dashboard
+  function register_vendor() {
+      var name = document.getElementById("vendor_name").value;
+      var email = document.getElementById("vendor_email").value;
+      var first = document.getElementById("owner_first_name").value;
+      var last_name = document.getElementById("owner_last_name").value;
+      var mobile = document.getElementById("vendor_mobile").value;
+      var addr = document.getElementById("vendor_address1").value;
+      var city = document.getElementById("vendor_address_city").value;
+      var country = document.getElementById("vendor_address_country").value;
+      var pin = document.getElementById("vendor_address_postalcode").value;
+      var description = document.getElementById("vendor_description").value;
+      var offers = document.getElementById("vendor_offers").value;
+      var vendor_name = document.getElementById("vendor_name").value;
 
 
-	minusBtn = document.createElement("button");
-	minusBtn.setAttribute("class", "btn cart-plus-minus-buttons");
-	minusBtn.setAttribute("onclick", "removeItem('itemCounter" + itemCounterID + "');");
 
-	minusIcon = document.createElement("span");
-	minusIcon.setAttribute("class", "glyphicon glyphicon-minus");
-	minusBtn.appendChild(minusIcon);
-	plusMinusDiv.appendChild(minusBtn);
+      var msg = {
+          "owner": first + " " + last_name,
+          "vendorname": name,
+          "email": email,
+          "mobile": [mobile],
+          "address": addr + " " + city + " " + country + " " + pin,
+          "imageaddress": "not available",
+          "description": description,
+          "offer": offers,
+          "password": "desitadka123"
+      }
+      fetch('/registervendor', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
 
-	listItem.appendChild(plusMinusDiv);
-	itemName = document.createElement("div");
-	itemName.setAttribute("class", "media-body our-media-body");
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify(msg)
 
-	itemHeading = document.createElement("h4");
-	itemHeading.setAttribute("class", "media-heading");
-	itemHeading.innerHTML = ItemList[0];
+      })
 
-	stickerImg = document.createElement("img");
-	stickerImg.setAttribute("class", "pull-right item-in-cart-sticker");
 
-	if (ItemList[2] == "veg") {
-		stickerImg.setAttribute("src", "./img/veg-sticker.png");
-	} else {
-		stickerImg.setAttribute("src", "./img/non-veg-sticker.png");
-	}
-	itemHeading.appendChild(stickerImg);
-
-	priceTag = document.createElement("p");
-	priceTag.setAttribute("class", "pull-right price-tag item-in-cart-price-tag");
-	priceTag.innerHTML = ItemList[1];
-	itemHeading.appendChild(priceTag);
-
-	itemName.appendChild(itemHeading);
-	listItem.appendChild(itemName);
-
-	cartItems.appendChild(listItem);
-
-	separator = document.createElement("li");
-	separator.setAttribute("class", "divider our-divider");
-	separator.setAttribute("role", "separator");
-	cartItems.appendChild(separator);
-}
+  }

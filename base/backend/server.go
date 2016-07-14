@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx"
@@ -32,7 +35,89 @@ func init() {
 func main() {
 	r := gin.Default()
 
-	r.GET("/registervendor", func(c *gin.Context) {
+	//*************************Hosting client.html page
+	r.GET("/main", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/main.html")
+		c.Data(200, "text/html", res)
+	})
+
+	r.GET("/client", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/backend/client.html")
+		c.Data(200, "text/html", res)
+	})
+
+	r.GET("/dashboard", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/dashboard.html")
+		c.Data(200, "text/html", res)
+	})
+	r.GET("/dash", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/dash.html")
+		c.Data(200, "text/html", res)
+	})
+	r.GET("/table", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/table.html")
+		c.Data(200, "text/html", res)
+	})
+	r.GET("/user", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/user.html")
+		c.Data(200, "text/html", res)
+	})
+
+	//**********************fetching Javascript files file
+	r.GET("/js/:js_file", func(c *gin.Context) {
+		//to ser
+		jsFile := c.Param("js_file")
+
+		res, err := ioutil.ReadFile("/home/anil/foodies/spicyX/base/js/" + jsFile)
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(404, "error while fetching file")
+		}
+		c.Data(200, "application/javascript", res)
+
+		// c.Data(200, path.Join("applications", "javascript"), res)
+	})
+
+	//********************fetching CSS files
+	r.GET("/css/:css_file", func(c *gin.Context) {
+		//to ser
+		cssFile := c.Param("css_file")
+
+		res, err := ioutil.ReadFile("/home/anil/foodies/spicyX/base/css/" + cssFile)
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(404, "error while fetching file")
+		}
+		c.Data(200, "text/css", res)
+
+		// c.Data(200, path.Join("applications", "javascript"), res)
+	})
+
+	//********************fetching Images
+	r.GET("/img/:img_file", func(c *gin.Context) {
+		//to ser
+		imgFile := c.Param("img_file")
+		extension := strings.ToLower(strings.Split(imgFile, ".")[1])
+
+		res, err := ioutil.ReadFile("/home/anil/foodies/spicyX/base/img/" + imgFile)
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(404, "error while fetching Image")
+		}
+
+		if extension == "jpg" {
+			c.Data(200, "image/jpg", res)
+		} else if extension == "png" {
+			c.Data(200, "image/png", res)
+		} else if extension == "jpeg" {
+			c.Data(200, "image/png", res)
+		}
+
+		// c.Data(200, path.Join("applications", "javascript"), res)
+	})
+
+	//********************Registering vendors
+	r.POST("/registervendor", func(c *gin.Context) {
 		var ven vendor
 
 		c.BindJSON(&ven)
@@ -42,7 +127,7 @@ func main() {
 		tx, _ := db.Begin() // tx => transaction , _ => error and execute
 
 		defer tx.Rollback() // it will be executed after the completion of local function
-
+		fmt.Println(ven.Owner, ven.Name, ven.Email, ven.Mobile, ven.Address, ven.Image, ven.Description, ven.Offer, ven.Password)
 		// var track ID
 		var num int64
 		// insert into users table
@@ -62,7 +147,7 @@ func main() {
 
 	})
 
-	//item menu updation
+	//I**************************tem menu updation
 	r.POST("/additems", func(c *gin.Context) {
 		var menu MENU
 
@@ -100,7 +185,7 @@ func main() {
 
 	})
 
-	//customer registration
+	//*************************customer registration
 	r.GET("/registercustomer", func(c *gin.Context) {
 		var cus customer
 		c.BindJSON(&cus)
@@ -130,7 +215,7 @@ func main() {
 
 	})
 
-	//Serving vendors and their id's
+	//*****************************Serving vendors and their id's
 	r.GET("/getvendors", func(c *gin.Context) {
 		// c.BindJSON(&cus)
 
@@ -160,14 +245,15 @@ func main() {
 		fmt.Println("Vendors names are sent")
 	})
 
-	// method to serve request for MENU of particular vendor
+	//****************** method to serve request for MENU of particular vendor
 	r.GET("/getvendorsmenu", func(c *gin.Context) {
 		var id VID
 		c.BindJSON(&id)
 
 		fmt.Println("\n\nRequest for retreiving vendors menu Received : \n\n")
 
-		rows, err := db.Query(` SELECT  * from itemmenu where vendor_id = $1 `, id.Vendorid)
+		rows, err := db.Query(` SELECT  item_no, item_name, item_type, item_nature, price, item_description, imageaddress, discount
+		                        from itemmenu where vendor_id = $1 `, id.Vendorid)
 
 		if err != nil {
 			fmt.Println(err)
@@ -181,7 +267,7 @@ func main() {
 
 		for rows.Next() {
 			var t item
-			err := rows.Scan(&t.Vendorid, &t.Itemno, &t.Name, &t.IType, &t.Nature, &t.Price, &t.Description, &t.Image, &t.Discount)
+			err := rows.Scan(&t.Itemno, &t.Name, &t.IType, &t.Nature, &t.Price, &t.Description, &t.Image, &t.Discount)
 			items.ITEMS = append(items.ITEMS, t)
 			if err != nil {
 				fmt.Println(err)
@@ -191,46 +277,6 @@ func main() {
 		c.JSON(200, items)
 		fmt.Println("Vendors Menu  sent")
 	})
-
-	// r.GET("/api/verifyemail", func(c *gin.Context) {
-	// 	// receive userid and map it with the table users and get email
-	// 	var userid UserIDResp
-	// 	c.BindJSON(&userid)
-
-	// 	if userid.Userid <= 0 {
-	// 		response_map := make(map[string]string)
-	// 		response_map["error"] = "Invalid Userid"
-	// 		c.JSON(404, response_map)
-	// 		return
-	// 	}
-
-	// 	var email string
-	// 	db.QueryRow(`
-	// 		SELECT email
-	// 		FROM users
-	// 		WHERE userid = $1
-	// 	`, userid.Userid).Scan(&email)
-
-	// 	if email == "" {
-	// 		response_email := make(map[string]string)
-	// 		response_email["error"] = "Userid Not found"
-	// 		c.JSON(403, response_email)
-	// 		return
-	// 	}
-
-	// 	if email != EmailBefore {
-	// 		responsefail := make(map[string]string)
-	// 		responsefail["error"] = "can't generate user"
-	// 		c.JSON(405, responsefail)
-	// 		return
-	// 	}
-
-	// 	fmt.Printf("\n\nUserid allocated to corresponding Email\n\n")
-
-	// 	emailMap := make(map[string]string)
-	// 	emailMap["email"] = email
-	// 	c.JSON(200, emailMap)
-	// })
 
 	fmt.Println("\n\n\t #####     Foodies server live on :7070     #####")
 	r.Run(":7070")
