@@ -15,12 +15,6 @@ function removeItem(id) {
 	}
 }
 function loadMenuItems() {
-	console.log("in m");
-<<<<<<< HEAD
-	
-=======
-	// var pg = require('pg');
->>>>>>> fb8bf60fa1801a67c2337e6fa8c4845b76f09ee3
 	ItemList = [
 		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
 		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
