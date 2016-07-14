@@ -22,6 +22,6 @@ vendor_to_register = {
      "password" : "desitadka123"
 }
 
-resp = requests.get("http://localhost:7070/registervendor", data=json.dumps(vendor_to_register))
+resp = requests.post("http://localhost:7070/registervendor", data=json.dumps(vendor_to_register))
 body = resp.text
 print(body)

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx"
@@ -32,7 +33,14 @@ func init() {
 func main() {
 	r := gin.Default()
 
-	r.GET("/registervendor", func(c *gin.Context) {
+	//hosting client.html page
+	r.GET("/client.html", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/backend/client.html")
+		c.Data(200, "text/html", res)
+	})
+
+	//Registering vendors
+	r.POST("/registervendor", func(c *gin.Context) {
 		var ven vendor
 
 		c.BindJSON(&ven)
@@ -167,7 +175,7 @@ func main() {
 
 		fmt.Println("\n\nRequest for retreiving vendors menu Received : \n\n")
 
-		rows, err := db.Query(` SELECT  vendor_id, item_no, item_name, item_type, item_nature, price, item_description, imageaddress, discount
+		rows, err := db.Query(` SELECT  item_no, item_name, item_type, item_nature, price, item_description, imageaddress, discount
 		                        from itemmenu where vendor_id = $1 `, id.Vendorid)
 
 		if err != nil {
@@ -182,7 +190,7 @@ func main() {
 
 		for rows.Next() {
 			var t item
-			err := rows.Scan(&t.Vendorid, &t.Itemno, &t.Name, &t.IType, &t.Nature, &t.Price, &t.Description, &t.Image, &t.Discount)
+			err := rows.Scan(&t.Itemno, &t.Name, &t.IType, &t.Nature, &t.Price, &t.Description, &t.Image, &t.Discount)
 			items.ITEMS = append(items.ITEMS, t)
 			if err != nil {
 				fmt.Println(err)
@@ -193,44 +201,8 @@ func main() {
 		fmt.Println("Vendors Menu  sent")
 	})
 
-	// r.GET("/api/verifyemail", func(c *gin.Context) {
-	// 	// receive userid and map it with the table users and get email
-	// 	var userid UserIDResp
-	// 	c.BindJSON(&userid)
-
-	// 	if userid.Userid <= 0 {
-	// 		response_map := make(map[string]string)
-	// 		response_map["error"] = "Invalid Userid"
-	// 		c.JSON(404, response_map)
-	// 		return
-	// 	}
-
-	// 	var email string
-	// 	db.QueryRow(`
-	// 		SELECT email
-	// 		FROM users
-	// 		WHERE userid = $1
-	// 	`, userid.Userid).Scan(&email)
-
-	// 	if email == "" {
-	// 		response_email := make(map[string]string)
-	// 		response_email["error"] = "Userid Not found"
-	// 		c.JSON(403, response_email)
-	// 		return
-	// 	}
-
-	// 	if email != EmailBefore {
-	// 		responsefail := make(map[string]string)
-	// 		responsefail["error"] = "can't generate user"
-	// 		c.JSON(405, responsefail)
-	// 		return
-	// 	}
-
-	// 	fmt.Printf("\n\nUserid allocated to corresponding Email\n\n")
-
-	// 	emailMap := make(map[string]string)
-	// 	emailMap["email"] = email
-	// 	c.JSON(200, emailMap)
+	// r.GET("js:js_file", func(c *gin.Context) {
+	// 	res := ioutilReadFile("")
 	// })
 
 	fmt.Println("\n\n\t #####     Foodies server live on :7070     #####")
