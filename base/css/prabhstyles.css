@@ -144,8 +144,8 @@
 	margin: 3px;
 }
 .cart-item-separator {
-	background: RGBA(102, 146, 129, 0.42);
-	padding: 1px;
+	border: 0;
+	border-top: 1px solid #eee;
 }
 .contact-heading {
 	padding: 20px;

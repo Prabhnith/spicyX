@@ -34,3 +34,5 @@ $(document).ready(function() {
         return false;
     });
 });
+
+window.

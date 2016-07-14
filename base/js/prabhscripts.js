@@ -1,116 +1,135 @@
-
 window.onload = function() {
 	loadMenuItems();
 }
 
-function addItem(id) {
-	var itemCounter = document.getElementById(id);
-	itemCounter.innerHTML = +itemCounter.innerHTML + 1;
+ItemList = [{
+	dishID: "dish01",
+	dishName: "Paneer Shahi and corn Korma",
+	dishDescription: "Mushroom sautéed",
+	dishPrice: 200,
+	dishType: true
+}, {
+	dishID: "dish02",
+	dishName: "Paneer Shahi",
+	dishDescription: "Mushroom baby corn",
+	dishPrice: 270,
+	dishType: false
+}, {
+	dishID: "dish03",
+	dishName: "Paneer Korma",
+	dishDescription: "Mushroom sautéed corn",
+	dishPrice: 170,
+	dishType: true
+}];
+
+ItemsInCartList = [];
+
+function addItem(dishID) {
+	console.log("in add ITem :",dishID);
+	var itemCounter = document.getElementById(dishID);
+	itemCounter.firstChild.data = +itemCounter.firstChild.data + 1;
+	updatePrice(dishID,true );
 }
 
-function removeItem(id) {
-	var itemCounter = document.getElementById(id);
-	if (+itemCounter.innerHTML != 0) {
-		itemCounter.innerHTML = +itemCounter.innerHTML - 1;
+function removeItem(dishID) {
+	var itemCounter = document.getElementById(dishID);
+	if (+itemCounter.firstChild.data > 1) {
+		itemCounter.firstChild.data = +itemCounter.firstChild.data - 1;
+		updatePrice(dishID,false );
+	}else{
+		document.getElementById("key"+dishID).remove();
+		var index = ItemsInCartList.indexOf(dishID);
+		if (index > -1) {
+		    ItemsInCartList.splice(index, 1);
+		    updatePrice(dishID,false);
+		}
 	}
 }
+
+function updatePrice (dishID,plus) {
+	var itemPriceIndex=0;
+	for(var i=0;i<ItemList.length;i++){
+		if(dishID == ItemList[i]["dishID"]){
+			itemPriceIndex=i;
+			break;
+		}
+	}
+	totalAmount = document.getElementById("total-amount");
+	if(plus){
+		totalAmount.innerHTML = +totalAmount.innerHTML + parseInt(ItemList[itemPriceIndex]["dishPrice"]);
+	}else{
+		totalAmount.innerHTML = +totalAmount.innerHTML - parseInt(ItemList[itemPriceIndex]["dishPrice"]);
+	}
+}
+
 function loadMenuItems() {
 
-	ItemList = [
-		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
-		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
-		["Corn Korma", "garlic cloves and spice", "170", "V"],
-		["Paneer Shahi and corn Korma", "Mushroom sautéed with baby corn", "270", "V"],
-		["Shahi Korma", "onion, tomato, poppy seeds", "230", "N"],
-		["Corn Korma", "garlic cloves and spice", "170", "V"]
-	];
 
-	for (let i = 0; i < ItemList.length; i++) {
-		menuList = document.getElementById("menu-list");
-
-		listItem = document.createElement("li");
-		listItem.setAttribute("class", "media");
-
-		stickerDiv = document.createElement("div");
-		stickerDiv.setAttribute("class", "media-left");
-
-		stickerImg = document.createElement("img");
-		stickerImg.setAttribute("class", "media-object stickers");
-
-		if (ItemList[i][3] == "V") {
-			stickerImg.setAttribute("src", "./img/veg-sticker.png");
-			stickerImg.setAttribute("alt", "veg");
+	data = {
+		items: ItemList
+	};
+	rivets.binders.veg = function(el, value) {
+		if (value) {
+			el.src = "./img/veg-sticker.png"
 		} else {
-			stickerImg.setAttribute("src", "./img/non-veg-sticker.png");
-			stickerImg.setAttribute("alt", "non-veg");
+			el.src = "./img/non-veg-sticker.png"
 		}
-		stickerDiv.appendChild(stickerImg);
-		listItem.appendChild(stickerDiv);
-		itemName = document.createElement("div");
-		itemName.setAttribute("class", "media-body our-media-body");
-
-		itemHeading = document.createElement("h4");
-		itemHeading.setAttribute("class", "media-heading");
-		if (ItemList[i][3] == "V") {
-			itemHeading.setAttribute("role", "veg");
-		} else {
-			itemHeading.setAttribute("role", "nveg");
-		}
-		itemHeading.innerHTML = ItemList[i][0];
-
-		addItemSymbol = document.createElement("button");
-		addItemSymbol.setAttribute("class", "btn glyphicon glyphicon-plus add-button pull-right");
-		addItemSymbol.setAttribute("id", "menuItemBtn"+i);
-		addItemSymbol.setAttribute("onclick", "addToCart(id);");
-		itemHeading.appendChild(addItemSymbol);
-
-		priceTag = document.createElement("p");
-		priceTag.setAttribute("class", "pull-right price-tag");
-		priceTag.innerHTML = "₹ " + ItemList[i][2];
-		itemHeading.appendChild(priceTag);
-
-		itemName.appendChild(itemHeading);
-
-		itemDescription = document.createElement("p");
-		itemDescription.setAttribute("class", "our-menu-content");
-		itemDescription.innerHTML = ItemList[i][1];
-		itemName.appendChild(itemDescription);
-		listItem.appendChild(itemName);
-
-		menuList.appendChild(listItem);
-
-		separator = document.createElement("li");
-		separator.setAttribute("class", "divider our-divider");
-		separator.setAttribute("role", "separator");
-		menuList.appendChild(separator);
 	}
+	rivets.binders.click = function(el, value) {
+		el.onclick = function() {
+			addToCart(value);
+		}
+	}
+
+	rivets.bind(document.getElementById("menu-list"), {
+		ItemList: data
+	});
 }
 
-function addToCart(i) {
-	var btn = document.getElementById(i);
-	var dishName = btn.parentNode.firstChild.data;
-	var dishPrice = btn.parentNode.children[1].innerHTML;
-	var dishType = btn.parentNode.attributes[1].textContent;
+
+function checkCartItems(dishID) {
+	
+	if ($.inArray(dishID, ItemsInCartList) == -1) {
+		ItemsInCartList.push(dishID);
+		return false;
+	} else {
+		addItem(dishID);
+		return true;
+	}
+}
+function loadCartItems(ItemToLoad) {
+	if(!checkCartItems(ItemToLoad[0])){
+		addElementToCart(ItemToLoad);
+		updatePrice(ItemToLoad[0],true);
+	}
+};
+
+function addToCart(dishID) {
+	var dishIndex = 0;
+	for (var i = 0; i < ItemList.length; i++) {
+		if (ItemList[i]["dishID"] == dishID) {
+			dishIndex = i;
+			break;
+		}
+	}
 	var item = [];
-	item.push(dishName, dishPrice, dishType);
+	item.push(dishID, ItemList[dishIndex]["dishName"], ItemList[dishIndex]["dishPrice"], ItemList[dishIndex]["dishType"]);
 	loadCartItems(item);
 };
 
-itemCounterID = 0;
-
-function loadCartItems(ItemList) {
-	itemCounterID++;
-	console.log(ItemList.length);
+function addElementToCart(ItemToLoad) {
+	console.log(ItemToLoad.length);
 	cartItems = document.getElementById("cartItems");
 	listItem = document.createElement("li");
 	listItem.setAttribute("class", "media media-margin");
+	listItem.setAttribute("id", "key"+ItemToLoad[0]);
 
 	plusMinusDiv = document.createElement("div");
 	plusMinusDiv.setAttribute("class", "media-left btn-group-vertical cart-plus-minus-buttons-group");
 
 	plusBtn = document.createElement("button");
 	plusBtn.setAttribute("class", "btn cart-plus-minus-buttons");
-	plusBtn.setAttribute("onclick", "addItem('itemCounter" + itemCounterID + "');");
+	plusBtn.setAttribute("onclick", "addItem('" + ItemToLoad[0] + "');");
 
 	plusIcon = document.createElement("span");
 	plusIcon.setAttribute("class", "glyphicon glyphicon-plus");
@@ -119,14 +138,14 @@ function loadCartItems(ItemList) {
 
 	itemCounter = document.createElement("span");
 	itemCounter.setAttribute("class", "item-counter");
-	itemCounter.setAttribute("id", "itemCounter" + itemCounterID);
+	itemCounter.setAttribute("id", ItemToLoad[0]);
 	itemCounter.innerHTML = 1;
 	plusMinusDiv.appendChild(itemCounter);
 
 
 	minusBtn = document.createElement("button");
 	minusBtn.setAttribute("class", "btn cart-plus-minus-buttons");
-	minusBtn.setAttribute("onclick", "removeItem('itemCounter" + itemCounterID + "');");
+	minusBtn.setAttribute("onclick", "removeItem('" + ItemToLoad[0] + "');");
 
 	minusIcon = document.createElement("span");
 	minusIcon.setAttribute("class", "glyphicon glyphicon-minus");
@@ -139,12 +158,12 @@ function loadCartItems(ItemList) {
 
 	itemHeading = document.createElement("h4");
 	itemHeading.setAttribute("class", "media-heading");
-	itemHeading.innerHTML = ItemList[0];
+	itemHeading.innerHTML = ItemToLoad[1];
 
 	stickerImg = document.createElement("img");
 	stickerImg.setAttribute("class", "pull-right item-in-cart-sticker");
 
-	if (ItemList[2] == "veg") {
+	if (ItemToLoad[3]) {
 		stickerImg.setAttribute("src", "./img/veg-sticker.png");
 	} else {
 		stickerImg.setAttribute("src", "./img/non-veg-sticker.png");
@@ -153,7 +172,7 @@ function loadCartItems(ItemList) {
 
 	priceTag = document.createElement("p");
 	priceTag.setAttribute("class", "pull-right price-tag item-in-cart-price-tag");
-	priceTag.innerHTML = ItemList[1];
+	priceTag.innerHTML = ItemToLoad[2];
 	itemHeading.appendChild(priceTag);
 
 	itemName.appendChild(itemHeading);

@@ -6,30 +6,31 @@
               $(".ournav").css("background-color", "transparent"); // if not, change it back to transparent
           }
       });
+
   });
 
 
-window.onload = function(){
-//To add hotel-names to  drop drown
+  window.onload = function() {
+      //To add hotel-names to  drop drown
       fetch('/getvendors', {
           method: 'GET',
           headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
-         },
+          },
           credentials: 'same-origin',
-      }).then(function(response){
+      }).then(function(response) {
           return response.json()
-      }).then(function(hotels){
-        for(){
-              
-        }
+      }).then(function(hotels) {
+          for () {
+
+          }
       })
 
 
-}
+  }
 
-//Function to register vendor Called from dashboard
+  //Function to register vendor Called from dashboard
   function register_vendor() {
       var name = document.getElementById("vendor_name").value;
       var email = document.getElementById("vendor_email").value;
@@ -66,8 +67,5 @@ window.onload = function(){
           },
           credentials: 'same-origin',
           body: JSON.stringify(msg)
-
       })
-
-
   }
