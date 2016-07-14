@@ -12,13 +12,13 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Restaurant Name</label>
-                                                <input type="text" class="form-control" placeholder="Company" value="SpicyX Inc.">
+                                                <input type="text" id="vendor_name" class="form-control" placeholder="Company" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" placeholder="Email@example.com">
+                                                <input type="email" id="vendor_email" class="form-control" placeholder="Email@example.com" required>
                                             </div>
                                         </div>
                                     </div>
@@ -27,13 +27,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="vender first name" >
+                                                <input type="text" id="owner_first_name" class="form-control" placeholder="vender first name"
+                                                required >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="vender last Name" >
+                                                <input type="text" id="owner_last_name" class="form-control" placeholder="vender last Name"
+                                                required >
                                             </div>
                                         </div>
                                     </div>
@@ -42,7 +44,8 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <input type="text" class="form-control" placeholder="Shop Address" >
+                                                <input type="text" id="vendor_address1" class="form-control" placeholder="Shop Address" 
+                                                required>
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +54,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Mobile</label>
-                                                <input type="text" class="form-control" placeholder="+91-987654321" required="">
+                                                <input type="text" id="vendor_mobile"  class="form-control" placeholder="+91-987654321" required>
                                             </div>
                                         </div>
                                     </div>
@@ -60,19 +63,19 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City" value="Hamirpur">
+                                                <input type="text" id="vendor_address_city"  class="form-control" placeholder="City" value="Hamirpur" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <input type="text" class="form-control" placeholder="Country" value="India">
+                                                <input type="text" id="vendor_address_country" class="form-control" placeholder="Country" value="India" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Postal Code</label>
-                                                <input type="number" class="form-control" placeholder="ZIP Code" value="177005">
+                                                <input type="number" id="vendor_address_postalcode" class="form-control" placeholder="ZIP Code" value="177005" required>
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +84,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>About your Restaurant</label>
-                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" >Some description about the your Restaurant.</textarea>
+                                                <textarea rows="5" id="vendor_description" class="form-control" placeholder="Here can be your description" required></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -89,12 +92,12 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Current Offers in Your Restaurant</label>
-                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" >Some description about the  Current Offers in Your Restaurant.</textarea>
+                                                <textarea rows="5" id="vendor_offers" class="form-control" placeholder="Here can be your  offers" ></textarea>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
+                                    <button type="submit" onclick="register_vendor()" class="btn btn-info btn-fill pull-right">Register/Update</button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
@@ -124,6 +127,7 @@
         </div>
 
         <script>
+
    function previewFile(){
        var preview = document.querySelector('img'); //selects the query named img
        var file    = document.querySelector('input[type=file]').files[0]; //sames as here
