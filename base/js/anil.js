@@ -9,6 +9,27 @@
   });
 
 
+window.onload = function(){
+//To add hotel-names to  drop drown
+      fetch('/getvendors', {
+          method: 'GET',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+         },
+          credentials: 'same-origin',
+      }).then(function(response){
+          return response.json()
+      }).then(function(hotels){
+        for(){
+              
+        }
+      })
+
+
+}
+
+//Function to register vendor Called from dashboard
   function register_vendor() {
       var name = document.getElementById("vendor_name").value;
       var email = document.getElementById("vendor_email").value;
@@ -24,7 +45,6 @@
       var vendor_name = document.getElementById("vendor_name").value;
 
 
-      var json_obj = {};
 
       var msg = {
           "owner": first + " " + last_name,
@@ -37,15 +57,6 @@
           "offer": offers,
           "password": "desitadka123"
       }
-      // var msg = {
-      //     "owner": "Rahul Sharma",
-      //     "vendorname": "Desi Tadka",
-      //     "email": "dt@gmail.com",
-      //     "mobile": ["1234567890"],
-      //     "address": "Hamirpur (H.P.)",
-      //     "imageaddress": "not available",
-      //     "password": "desitadka123"
-      // }
       fetch('/registervendor', {
           method: 'POST',
           headers: {

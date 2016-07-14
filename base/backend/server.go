@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx"
 )
@@ -34,24 +36,29 @@ func main() {
 	r := gin.Default()
 
 	//*************************Hosting client.html page
-	r.GET("/client.html", func(c *gin.Context) {
+	r.GET("/main", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/main.html")
+		c.Data(200, "text/html", res)
+	})
+
+	r.GET("/client", func(c *gin.Context) {
 		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/backend/client.html")
 		c.Data(200, "text/html", res)
 	})
 
-	r.GET("/dashboard.html", func(c *gin.Context) {
+	r.GET("/dashboard", func(c *gin.Context) {
 		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/dashboard.html")
 		c.Data(200, "text/html", res)
 	})
-	r.GET("/dash.html", func(c *gin.Context) {
+	r.GET("/dash", func(c *gin.Context) {
 		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/dash.html")
 		c.Data(200, "text/html", res)
 	})
-	r.GET("/table.html", func(c *gin.Context) {
+	r.GET("/table", func(c *gin.Context) {
 		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/table.html")
 		c.Data(200, "text/html", res)
 	})
-	r.GET("/user.html", func(c *gin.Context) {
+	r.GET("/user", func(c *gin.Context) {
 		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/user.html")
 		c.Data(200, "text/html", res)
 	})
@@ -82,6 +89,29 @@ func main() {
 			c.JSON(404, "error while fetching file")
 		}
 		c.Data(200, "text/css", res)
+
+		// c.Data(200, path.Join("applications", "javascript"), res)
+	})
+
+	//********************fetching Images
+	r.GET("/img/:img_file", func(c *gin.Context) {
+		//to ser
+		imgFile := c.Param("img_file")
+		extension := strings.ToLower(strings.Split(imgFile, ".")[1])
+
+		res, err := ioutil.ReadFile("/home/anil/foodies/spicyX/base/img/" + imgFile)
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(404, "error while fetching Image")
+		}
+
+		if extension == "jpg" {
+			c.Data(200, "image/jpg", res)
+		} else if extension == "png" {
+			c.Data(200, "image/png", res)
+		} else if extension == "jpeg" {
+			c.Data(200, "image/png", res)
+		}
 
 		// c.Data(200, path.Join("applications", "javascript"), res)
 	})
@@ -117,7 +147,7 @@ func main() {
 
 	})
 
-	//item menu updation
+	//I**************************tem menu updation
 	r.POST("/additems", func(c *gin.Context) {
 		var menu MENU
 
@@ -155,7 +185,7 @@ func main() {
 
 	})
 
-	//customer registration
+	//*************************customer registration
 	r.GET("/registercustomer", func(c *gin.Context) {
 		var cus customer
 		c.BindJSON(&cus)
@@ -185,7 +215,7 @@ func main() {
 
 	})
 
-	//Serving vendors and their id's
+	//*****************************Serving vendors and their id's
 	r.GET("/getvendors", func(c *gin.Context) {
 		// c.BindJSON(&cus)
 
@@ -215,7 +245,7 @@ func main() {
 		fmt.Println("Vendors names are sent")
 	})
 
-	// method to serve request for MENU of particular vendor
+	//****************** method to serve request for MENU of particular vendor
 	r.GET("/getvendorsmenu", func(c *gin.Context) {
 		var id VID
 		c.BindJSON(&id)
