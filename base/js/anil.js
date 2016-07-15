@@ -34,6 +34,7 @@
   function register_vendor() {
     console.log("pressed");
 
+
     var validated = validate_form("VendorProfile", "__form-validate");
     if(!validated){
       return;
@@ -66,6 +67,12 @@
     if(!email.validity.valid){
       alert("Enter valid email address.");
     }
+    var VendorPic = localStorage.getItem('VendorPic');
+    
+    if(VendorPic == null){
+      VendorPic = "";
+    }
+    
     if (!name.validity.valueMissing &&
       email.validity.valid &&
       !first.validity.valueMissing &&
@@ -79,7 +86,7 @@
         "email": email.value,
         "mobile": [mobile.value],
         "address": addr.value + " " + city.value + " " + country.value + " " + pin.value,
-        "imageaddress": "not available",
+        "imageaddress": VendorPic,
         "description": description.value,
         "offer": offers.value,
         "password": "desitadka123"
@@ -97,3 +104,25 @@
     }
   }
 
+
+   function previewFile(){
+       var preview = document.querySelector('img'); //selects the query named img
+       var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+       var reader  = new FileReader();
+
+       reader.onloadend = function () {
+           preview.src = reader.result;
+           console.log(reader.result);
+           window.open(reader.result);
+           var vendorPic = {
+            vendorPicture : reader.result
+           }
+           localStorage.setItem('vendorPic', vendorPic);
+       }
+
+       if (file) {
+           reader.readAsDataURL(file); //reads the data as a URL
+       } else {
+           preview.src = "https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400";
+       }
+  }
