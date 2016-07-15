@@ -1,26 +1,27 @@
-window.onload = function() {
-	loadMenuItems();
-}
+// window.onload = function() {
+// 	loadMenuItems();
+// }
 
-ItemList = [{
-	dishID: "dish01",
-	dishName: "Paneer Shahi and corn Korma",
-	dishDescription: "Mushroom sautéed",
-	dishPrice: 200,
-	dishType: true
-}, {
-	dishID: "dish02",
-	dishName: "Paneer Shahi",
-	dishDescription: "Mushroom baby corn",
-	dishPrice: 270,
-	dishType: false
-}, {
-	dishID: "dish03",
-	dishName: "Paneer Korma",
-	dishDescription: "Mushroom sautéed corn",
-	dishPrice: 170,
-	dishType: true
-}];
+var ItemList ;
+// [{
+// 	dishID: "dish01",
+// 	dishName: "Paneer Shahi and corn Korma",
+// 	dishDescription: "Mushroom sautéed",
+// 	dishPrice: 200,
+// 	dishType: true
+// }, {
+// 	dishID: "dish02",
+// 	dishName: "Paneer Shahi",
+// 	dishDescription: "Mushroom baby corn",
+// 	dishPrice: 270,
+// 	dishType: false
+// }, {
+// 	dishID: "dish03",
+// 	dishName: "Paneer Korma",
+// 	dishDescription: "Mushroom sautéed corn",
+// 	dishPrice: 170,
+// 	dishType: true
+// }];
 
 ItemsInCartList = [];
 
@@ -62,10 +63,40 @@ function updatePrice (dishID,plus) {
 	}
 }
 
-function loadMenuItems() {
+function loadMenuItems(vendorid) {
+	// Vendorid    int     `json:"vendor_id"`
+	// Itemno      int     `json:"item_no,omitempty"`
+	// Name        string  `json:"item_name"`
+	// IType       string  `json:"item_type"`
+	// Nature      bool    `json:"item_nature"`
+	// Description string  `json:"item_description"`
+	// Price       string  `json:"price"`
+	// Image       string  `json:"imageaddress,omitempty"`
+	// Discount    float64 `json:"discount,omitempty"`
+
+   console.log("loading items")
 
 
-	data = {
+      var vendor_id ={
+        "vendorid": 1
+      }
+ 
+      fetch('/getvendorsmenu', {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify(vendor_id)
+      }).then(function(response) {
+
+          return response.json();
+
+      }).then(function(item) {
+      	 console.log(item);
+          ItemList = item;
+    data = {
 		items: ItemList
 	};
 	rivets.binders.veg = function(el, value) {
@@ -84,6 +115,29 @@ function loadMenuItems() {
 	rivets.bind(document.getElementById("menu-list"), {
 		ItemList: data
 	});
+  });
+
+
+
+	// data = {
+	// 	items: ItemList
+	// };
+	// rivets.binders.veg = function(el, value) {
+	// 	if (value) {
+	// 		el.src = "./img/veg-sticker.png"
+	// 	} else {
+	// 		el.src = "./img/non-veg-sticker.png"
+	// 	}
+	// }
+	// rivets.binders.click = function(el, value) {
+	// 	el.onclick = function() {
+	// 		addToCart(value);
+	// 	}
+	// }
+
+	// rivets.bind(document.getElementById("menu-list"), {
+	// 	ItemList: data
+	// });
 }
 
 

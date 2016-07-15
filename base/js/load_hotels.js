@@ -28,7 +28,7 @@
           for (var i = 0; i < hotels.length; i++) {
               // console.log(hotels[i]["vendor_id"], hotels[i]["vendorname"]);
               var listItem = document.createElement("li");
-              // listItem.setAttribute("onclick","loadMenuItems("+ hotels[i]["vendor_id"] +")")
+              listItem.setAttribute("onclick","loadMenuItems("+ hotels[i]["vendor_id"] +")")
               listItem.innerHTML = hotels[i]["vendorname"];
               console.log(hotels[i]["vendorname"]);
               drop[0].appendChild(listItem);

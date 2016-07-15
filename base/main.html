@@ -26,6 +26,7 @@
     });
     </script>
     <script src="./js/load_hotels.js"></script>
+    <script src="./js/loadHotelMenu.js"></script>    
 </head>
 
 <body>
@@ -105,13 +106,13 @@
             <div class="panel-heading items-in-cart-heading center our-panel-heading">MENU ITEMS</div>
             <li rv-each-item="ItemList.items" class="media">
                 <div class="media-left">
-                    <img rv-veg="item.dishType" class="media-object stickers">
+                    <img rv-veg="item.item_type" class="media-object stickers">
                 </div>
                 <div class="media-body our-media-body">
-                    <h4 class="media-heading">{item.dishName}
+                    <h4 class="media-heading">{item.item_name}
           <span rv-click="item.dishID" class="glyphicon glyphicon-plus add-button pull-right"></span>
-          <p class="pull-right price-tag">₹ {item.dishPrice} </p></h4>
-                    <p class="our-menu-content"> {item.dishDescription}
+          <p class="pull-right price-tag">₹ {item.price} </p></h4>
+                    <p class="our-menu-content"> {item.item_description}
                     </p>
                 </div>
             </li>
