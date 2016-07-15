@@ -12,9 +12,9 @@
   // <!-- <li><a href="#">A9</a></li> -->
   window.addEventListener('load', function() {
       //To add hotel-names to  drop drown
-      console.log("hiii!!");
+      // console.log("hiii!!");
       var drop = document.getElementsByClassName("hotel-names-list");
-      console.log(drop);
+      // console.log(drop);
       fetch('/getvendors', {
           method: 'GET',
           headers: {
@@ -28,8 +28,9 @@
           for (var i = 0; i < hotels.length; i++) {
               // console.log(hotels[i]["vendor_id"], hotels[i]["vendorname"]);
               var listItem = document.createElement("li");
-              listItem.setAttribute("onclick","loadMenuItems("+ hotels[i]["vendor_id"] +")")
+              // listItem.setAttribute("onclick","loadMenuItems("+ hotels[i]["vendor_id"] +")")
               listItem.innerHTML = hotels[i]["vendorname"];
+              console.log(hotels[i]["vendorname"]);
               drop[0].appendChild(listItem);
           }
       }, function(err) {

@@ -40,6 +40,14 @@ func main() {
 		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/main.html")
 		c.Data(200, "text/html", res)
 	})
+	r.GET("/mainHeader", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/mainHeader.html")
+		c.Data(200, "text/html", res)
+	})
+	r.GET("/mainfooter", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/mainfooter.html")
+		c.Data(200, "text/html", res)
+	})
 
 	r.GET("/menuItems", func(c *gin.Context) {
 		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/menuItems.html")
