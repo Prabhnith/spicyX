@@ -7,18 +7,18 @@
                                 <h4 class="title">Edit Profile</h4>
                             </div>
                             <div class="content">
-                                <form>
+                                <form id="VendorProfile">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Restaurant Name</label>
-                                                <input type="text" id="vendor_name" class="form-control" placeholder="Company" required>
+                                                <input type="text" id="vendor_name" class="form-control __form-validate" data-alert="Company" data-regex=".+" placeholder="Company" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" id="vendor_email" class="form-control" placeholder="Email@example.com" required>
+                                                <input type="email" id="vendor_email" class="form-control __form-validate" data-alert="Email@example.com" data-regex="\S+@\S+\.\S+" placeholder="Email@example.com" required>
                                             </div>
                                         </div>
                                     </div>
@@ -27,7 +27,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>First Name</label>
-                                                <input type="text" id="owner_first_name" class="form-control" placeholder="vender first name"
+                                                <input type="text" id="owner_first_name" class="form-control __form-validate" data-alert="vendor first name" data-regex="[a-zA-Z]" placeholder="vendor first name"
                                                 required >
 
                                             </div>
@@ -35,7 +35,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Last Name</label>
-                                                <input type="text" id="owner_last_name" class="form-control" placeholder="vender last Name"
+                                                <input type="text" id="owner_last_name" class="form-control __form-validate" data-alert="vendor last name" data-regex="[a-zA-Z]" placeholder="vendor last Name"
                                                 required >
                                             </div>
                                         </div>
@@ -45,7 +45,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <input type="text" id="vendor_address1" class="form-control" placeholder="Shop Address" 
+                                                <input type="text" id="vendor_address1" class="form-control __form-validate" data-alert="Shop Address" data-regex=".+" placeholder="Shop Address" 
                                                 required>
                                             </div>
                                         </div>
@@ -55,7 +55,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Mobile</label>
-                                                <input type="text" id="vendor_mobile"  class="form-control" placeholder="+91-987654321" required>
+                                                <input type="text" id="vendor_mobile"  class="form-control __form-validate" data-alert="9800000000" data-regex="^[7-9]{3}[0-9]{7}" placeholder="987654321" required>
                                            </div>
                                         </div>
                                     </div>
@@ -64,19 +64,19 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" id="vendor_address_city"  class="form-control" placeholder="City" value="Hamirpur" required>
+                                                <input type="text" id="vendor_address_city"  class="form-control __form-validate" data-alert="City" data-regex="[a-zA-Z]" placeholder="City" value="Hamirpur" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <input type="text" id="vendor_address_country" class="form-control" placeholder="Country" value="India" required>
+                                                <input type="text" id="vendor_address_country" class="form-control __form-validate" data-alert="Country" data-regex="[a-zA-Z]" placeholder="Country" value="India" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Postal Code</label>
-                                                <input type="number" id="vendor_address_postalcode" class="form-control" placeholder="ZIP Code" value="177005" required>
+                                                <input type="number" id="vendor_address_postalcode" class="form-control __form-validate" data-alert="ZIP code" data-regex="[0-9]{6}" placeholder="ZIP Code" value="177005" required>
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>About your Restaurant</label>
-                                                <textarea rows="5" id="vendor_description" class="form-control" placeholder="Here can be your description" required></textarea>
+                                                <textarea rows="5" id="vendor_description" class="form-control __form-validate" data-alert="Description about your description." data-regex=".+" placeholder="Here can be your description" required></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Current Offers in Your Restaurant</label>
-                                                <textarea rows="5" id="vendor_offers" class="form-control" placeholder="Here can be your  offers" ></textarea>
+                                                <textarea rows="5" id="vendor_offers" class="form-control __form-validate" data-alert="Here you can put your offers." data-regex=".*" placeholder="Here can be your  offers" ></textarea>
                                             </div>
                                         </div>
                                     </div>
