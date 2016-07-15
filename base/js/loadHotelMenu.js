@@ -1,27 +1,6 @@
-// window.onload = function() {
-// 	loadMenuItems();
-// }
-
-var ItemList ;
-// [{
-// 	dishID: "dish01",
-// 	dishName: "Paneer Shahi and corn Korma",
-// 	dishDescription: "Mushroom sautéed",
-// 	dishPrice: 200,
-// 	dishType: true
-// }, {
-// 	dishID: "dish02",
-// 	dishName: "Paneer Shahi",
-// 	dishDescription: "Mushroom baby corn",
-// 	dishPrice: 270,
-// 	dishType: false
-// }, {
-// 	dishID: "dish03",
-// 	dishName: "Paneer Korma",
-// 	dishDescription: "Mushroom sautéed corn",
-// 	dishPrice: 170,
-// 	dishType: true
-// }];
+window.addEventListener("load", function(){
+	document.getElementById("menu-list").style.visibility = "hidden";
+})
 
 ItemsInCartList = [];
 
@@ -94,10 +73,9 @@ function loadMenuItems(vendorid) {
           return response.json();
 
       }).then(function(item) {
-      	 console.log(item);
-          ItemList = item;
+    document.getElementById("menu-list").style.visibility = "";
     data = {
-		items: ItemList
+		items: item
 	};
 	rivets.binders.veg = function(el, value) {
 		if (value) {
@@ -116,28 +94,6 @@ function loadMenuItems(vendorid) {
 		ItemList: data
 	});
   });
-
-
-
-	// data = {
-	// 	items: ItemList
-	// };
-	// rivets.binders.veg = function(el, value) {
-	// 	if (value) {
-	// 		el.src = "./img/veg-sticker.png"
-	// 	} else {
-	// 		el.src = "./img/non-veg-sticker.png"
-	// 	}
-	// }
-	// rivets.binders.click = function(el, value) {
-	// 	el.onclick = function() {
-	// 		addToCart(value);
-	// 	}
-	// }
-
-	// rivets.bind(document.getElementById("menu-list"), {
-	// 	ItemList: data
-	// });
 }
 
 
