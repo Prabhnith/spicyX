@@ -28,11 +28,8 @@
           for (var i = 0; i < hotels.length; i++) {
               // console.log(hotels[i]["vendor_id"], hotels[i]["vendorname"]);
               var listItem = document.createElement("li");
-              var a = document.createElement("a");
-              // a.SetAttribute("href","#");
-              a.setAttribute("id", hotels[i]["vendor_id"]);
-              a.innerHTML = hotels[i]["vendorname"];
-              listItem.appendChild(a);
+              listItem.setAttribute("onclick","loadMenuItems("+ hotels[i]["vendor_id"] +")")
+              listItem.innerHTML = hotels[i]["vendorname"];
               drop[0].appendChild(listItem);
           }
       }, function(err) {
