@@ -62,6 +62,14 @@ func main() {
 		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/user.html")
 		c.Data(200, "text/html", res)
 	})
+	r.GET("/delivery", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/delivery.html")
+		c.Data(200, "text/html", res)
+	})
+	r.GET("/viewMenuItems", func(c *gin.Context) {
+		res, _ := ioutil.ReadFile("/home/anil/foodies/spicyX/base/dashboard/viewMenuItems.html")
+		c.Data(200, "text/html", res)
+	})
 
 	//**********************fetching Javascript files file
 	r.GET("/js/:js_file", func(c *gin.Context) {
@@ -149,9 +157,9 @@ func main() {
 
 	//I**************************tem menu updation
 	r.POST("/additems", func(c *gin.Context) {
-		var ITEMS []item
+		var val item
 
-		c.BindJSON(&ITEMS)
+		c.BindJSON(&val)
 
 		fmt.Println("\n\nRequest Received for menu updation: \n\n ")
 		// fmt.Printf("%#v", menu)
@@ -159,23 +167,22 @@ func main() {
 
 		defer tx.Rollback() // it will be executed after the completion of local function
 
-		for _, val := range ITEMS {
-			fmt.Println("vals", val.Vendorid, val.Itemno, val.Name, val.IType, val.Nature, val.Price, val.Description, val.Image, val.Discount)
-			_, err := tx.Exec(`
-				INSERT INTO itemmenu (vendor_id ,item_no ,item_name ,item_type ,item_nature ,price , item_description ,imageaddress ,discount) 
-				         values ($1,$2,$3,$4,$5,$6,$7,$8,$9)`, val.Vendorid, val.Itemno, val.Name, val.IType, val.Nature, val.Price,
-				val.Description, val.Image, val.Discount)
+		// fmt.Println("vals", val.Vendorid, val.Itemno, val.Name, val.IType, val.Nature, val.Price, val.Description, val.Image, val.Discount)
+		_, err := tx.Exec(`
+				INSERT INTO itemmenu (vendor_id ,item_name ,item_type ,item_nature ,price , item_description ,imageaddress ,discount) 
+				         values ($1,$2,$3,$4,$5,$6,$7,$8)`, val.Vendorid, val.Name, val.IType, val.Nature, val.Price,
+			val.Description, val.Image, val.Discount)
 
-			if err != nil {
-				// c.JSON(500, "error")
-				fmt.Println("error", err)
-			}
+		if err != nil {
+			// c.JSON(500, "error")
+			fmt.Println("error", err)
 		}
 
 		commit_err := tx.Commit()
 
 		if commit_err != nil {
 			tx.Rollback()
+			fmt.Println(commit_err)
 			c.JSON(500, "ERR")
 			return
 		}
@@ -245,7 +252,7 @@ func main() {
 	})
 
 	//****************** method to serve request for MENU of particular vendor
-	r.GET("/getvendorsmenu", func(c *gin.Context) {
+	r.POST("/getvendorsmenu", func(c *gin.Context) {
 		var id VID
 		c.BindJSON(&id)
 
@@ -319,10 +326,10 @@ type CSID struct {
 //Menu updation
 type item struct {
 	Vendorid    int     `json:"vendor_id"`
-	Itemno      int     `json:"item_no"`
+	Itemno      int     `json:"item_no,omitempty"`
 	Name        string  `json:"item_name"`
 	IType       string  `json:"item_type"`
-	Nature      bool    `json:"item-nature"`
+	Nature      bool    `json:"item_nature"`
 	Description string  `json:"item_description"`
 	Price       string  `json:"price"`
 	Image       string  `json:"imageaddress,omitempty"`

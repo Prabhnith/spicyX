@@ -6,6 +6,8 @@
                     <div class="header">
                         <h4 class="title">Restaurant Menu </h4>
                         <p class="category">List all the items available in your Restaurant</p>
+<!--                         <button  class="btn  btn-primary pull-right" onclick="submit_items()">
+                           <i class="glyphicon glyphicon-plus gs" ></i> submit items</button> -->
                     </div>
                     <div class="content table-responsive table-full-width">
                         <table id="vendor_menu_items" class="table table-hover table-bordered ">
@@ -16,8 +18,13 @@
                                 <th>Item Type</th>
                                 <th>Item Nature</th>
                                 <th>Discount</th>
+                                <th>Description</th>
+                                
                                 <th>Delete</th>
                             </thead>
+                            <tbody id="view-table-body">
+<!--                                 <tr>
+                              <td class="count"></td>
                             <tbody>
                                 <tr>
                                     <td class="count"></td>
@@ -32,16 +39,16 @@
                                         <i class="glyphicon glyphicon-minus gs"></i>
                                         </button>
                                     </td>
-                                </tr>
+                                </tr>  -->
                             </tbody>
                         </table>
                     </div>
-                    <button id="add_row" class="btn btn-add btn-primary pull-right">
-                    <i class="glyphicon glyphicon-plus gs"></i> Add items</button>
+
                 </div>
             </div>
         </div>
     </div>
-<script src="./js/menuItems.js"></script>
+<script src="./js/view_menu_items.js"></script>
+
 <link rel="stylesheet" type="text/css" href="./css/menu.css">
 </div>

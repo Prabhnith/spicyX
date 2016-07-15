@@ -115,7 +115,7 @@ except Exception as e:
 cursor.execute("""
     create table itemmenu(
         vendor_id int NOT NULL references vendors(vendorid),
-        item_no bigint NOT NULL ,        
+        item_no bigserial  ,        
         item_name text NOT NULL,
         item_type varchar(10) NOT NULL CHECK(item_type in ('starter','main','desert')) ,
         item_nature boolean NOT NULL ,
